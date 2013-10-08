@@ -10,7 +10,11 @@
 *@version 0.0.1
 */
 
-//settings inclution
+//Settings inclution
 require_once("./settings.php");
-// Redirect to the view
+
+//Load view
 require_once("./views/base_view.php");
+
+//Render view
+$view = new baseView();
