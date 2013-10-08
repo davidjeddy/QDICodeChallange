@@ -77,15 +77,28 @@ class baseController
 	private function switchBoard() {
 
 		$return_data = array();
+		
 		//Now, based on the form action, determine our next move
+		//This is the HTTP rewquest type <-> CRUD convertion
+		//TODO this can be refactored into a single action->method call. No need to repeat
 		switch ($this->data->action) {
-		    case 'create':
-		        $this->returnData($this->create($this->data));
+		    case 'post':
+		        if ($this->create($this->data)) {
+		        	$return_data[] = "Create completed successfully.";
+		        } else {
+		        	$return_data[] = "Create failed.";
+		        }
+
 		        break;
-		    case 'read':
-		        $this->returnData($this->read($this->data));
+		    case 'get':
+		        if ($return_data = $this->read($this->data)) {
+		        	$return_data[] = $return_data;
+		        } else {
+		        	$return_data[] = "Read failed.";
+		        }
+
 		        break;
-		    case 'update':
+		    case 'patch':
 		        if ($this->update($this->data)) {
 		        	$return_data[] = "Update completed successfully.";
 		        } else {
@@ -94,7 +107,12 @@ class baseController
 
 		        break;
 		    case 'delete':
-		        $this->returnData($this->delete($this->data));
+		        if ($this->delete($this->data)) {
+		        	$return_data[] = "Deleted action successfull.";
+		        } else {
+		        	$return_data[] = "Deleted failed.";
+		        }
+
 		        break;
 		    default:
 		    	$this->returnData(null, "No valid action found.");
@@ -107,11 +125,11 @@ class baseController
 	*Return all processed data as legit json object
 	*This is the termination of the ctrl logic
 	*/
-	private function returnData(array $data, $msg = null) {
+	private function returnData($data, $msg = null) {
 
 		//Return the error message if it exists
-		if ($msg) {
-			print_r(json_encode($msg));
+		if (is_null($data) && $msg) {
+			print_r($msg);
 			exit;
 
 			//Encode and return data
@@ -119,10 +137,6 @@ class baseController
 			print_r(json_encode($data));
 			exit;
 
-			//Catch all error return
-		} elseif (is_string($data)) {
-			print_r(json_encode("Unable to process request. Error: ".$data));
-			exit;
 		}
 
 		//...and for safe measure

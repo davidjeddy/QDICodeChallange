@@ -65,13 +65,13 @@ class baseView
                         <!-- Loop this part -->
                         <?php foreach ($this->alphabet as $letter) { ?>
                         <div class="bs-example" id="<?= $letter; ?>">
-                            <form>
+                            <form action="patch">
                                 <input type="text" class="form-control" name="fname"    value="<?= $letter; ?> Add FName" />
                                 <input type="text" class="form-control" name="lname"    value="LName" />
                                 <input type="text" class="form-control" name="city"     value="City" />
                                 <input type="text" class="form-control" name="state"    value="State" />
                                 <input type="text" class="form-control" name="zip"      value="Zip" />
-                                <button type="button" class="btn btn-success disabled" data-loading-text="Save" >Save</button>    
+                                <button type="button" class="btn btn-success disabled update_data_button" data-loading-text="Update" >Update</button>
                             </form>
                         </div>
                         <?php } ?>
@@ -80,13 +80,13 @@ class baseView
 
 
                     <div class="add_data_container" class="navbar navbar-default navbar-static">
-                        <form>
+                        <form action="post">
                             <input type="text" class="form-control" name="fname"    value="Add FName" />
                             <input type="text" class="form-control" name="lname"    value="LName" />
                             <input type="text" class="form-control" name="city"     value="City" />
                             <input type="text" class="form-control" name="state"    value="State" />
                             <input type="text" class="form-control" name="zip"      value="Zip" />
-                            <button type="button" class="btn btn-primary add" data-loading-text="Add" >Add</button>    
+                            <button type="button" class="btn btn-primary create_data_button" data-loading-text="Create" >Create</button>
                         </form>
                     </div>
                 </div>
