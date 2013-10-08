@@ -18,8 +18,7 @@ class baseView
         $this->alphabet = $data;
     }
 
-    public function __constructor() {
-        echo 'adsf';
+    public function __construct() {
         $this->renderView();
     }
 
@@ -64,9 +63,10 @@ class baseView
                     >
 
                         <!-- Loop this part -->
-                        <div class="bs-example" id="a">
+                        <?php foreach ($this->alphabet as $letter) { ?>
+                        <div class="bs-example" id="<?= $letter; ?>">
                             <form>
-                                <input type="text" class="form-control" name="fname"    value="Add FName" />
+                                <input type="text" class="form-control" name="fname"    value="<?= $letter; ?> Add FName" />
                                 <input type="text" class="form-control" name="lname"    value="LName" />
                                 <input type="text" class="form-control" name="city"     value="City" />
                                 <input type="text" class="form-control" name="state"    value="State" />
@@ -74,6 +74,7 @@ class baseView
                                 <button type="button" class="btn btn-success disabled" data-loading-text="Save" >Save</button>    
                             </form>
                         </div>
+                        <?php } ?>
                     </div>
 
 
