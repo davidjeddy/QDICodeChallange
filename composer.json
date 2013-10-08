@@ -1,0 +1,21 @@
+{
+    "name": "qdi/SampleCodeChallenge",
+    "description": "",
+    "license": "All right reserved, David Eddy. 2013",
+    "authors": [
+        {
+            "name": "David Eddy",
+            "email": "pheagey@gmail.com"
+        }
+    ],
+    "minimum-stability": "stable",
+    "require": {
+        "phpunit/phpunit": "3.7.24",
+        "phpdocumentor/phpdocumentor": "2.*",
+        "monolog/monolog": "1.6.*",
+        "squizlabs/php_codesniffer": "1.4.x",
+        "fabpot/php-cs-fixer": "0.3.*@dev",
+        "components/jquery": "1.10.*@dev",
+        "twitter/bootstrap": "v3.0.0"
+    }
+}
