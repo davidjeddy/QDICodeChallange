@@ -15,6 +15,3 @@ require_once("./settings.php");
 
 //Load view
 require_once("./views/base_view.php");
-
-//Render view
-$view = new baseView();
