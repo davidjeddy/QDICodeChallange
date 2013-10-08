@@ -103,24 +103,25 @@ class baseController
 		$this->returnData($return_data);
 	}
 
+	/**
 	*Return all processed data as legit json object
-	*This is the termination of the logic
+	*This is the termination of the ctrl logic
 	*/
-	private function returnData($data = null, $msg = null) {
+	private function returnData(array $data, $msg = null) {
 
 		//Return the error message if it exists
 		if ($msg) {
-			echo json_encode($msg);
+			print_r(json_encode($msg));
 			exit;
 
 			//Encode and return data
 		} elseif (!empty($data) && is_array($data)) {
-			echo json_encode($data);
+			print_r(json_encode($data));
 			exit;
 
 			//Catch all error return
 		} elseif (is_string($data)) {
-			echo "Unable to process request. Error: ".$data;
+			print_r(json_encode("Unable to process request. Error: ".$data));
 			exit;
 		}
 
@@ -152,7 +153,6 @@ class baseController
 	* Update existing data record
 	*/
 	public function update() {
-
 		return $this->baseModel->update($this->data);
 	}
 
