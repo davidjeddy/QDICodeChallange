@@ -58,23 +58,13 @@ function crudData(action, data, httpType) {
         data: out_data,
         dataType: "json",
         url: "./ctrls/base_ctrl.php"
-    });
-
-    promise.success(function(data) {
-
-		console.log('AJAX request successful.');
-    });
-
-    promise.error(function(data) {
-    	alert('Error during processing; please try again later.');
-    	console.log(JSON.stringify(data));
-    	return false;
-    });
-
-    promise.complete(function(){
-
-		console.log("AJAX request completed.");
-    });
+    }).done(function() {
+    	alert( "success" );
+  	}).fail(function() {
+    	alert( "error" );
+	}).always(function() {
+    	alert( "complete" );
+  	});
 };
 
 
