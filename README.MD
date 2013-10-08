@@ -8,3 +8,6 @@ Install:
 4) Use table script located in ./docs/conman_table.sql
 5) Collect bacon
 
+Testing:
+ConMan uses phpunit for testing. All tests can be found within the ./tests/ dir
+To test change to the working dir and run phpunit using the config file.
