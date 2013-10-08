@@ -55,7 +55,7 @@ class baseModel
 	*Create a new data record
 	*/
 	public function create($data) {
-
+		return true;
 	}
 
 	/**
@@ -63,7 +63,6 @@ class baseModel
 	*/
 	public function read($data) {
 		$return_data = array();
-
 		$stmt = "SELECT * FROM ".db_name.".".db_table."";
 
 		try {
@@ -85,13 +84,13 @@ class baseModel
 	*Update a new data record
 	*/
 	public function update($data) {
-
+		return true;
 	}
 
 	/**
 	*Delete a new data record
 	*/
 	public function delete($data) {
-
+		return true;
 	}
 }
