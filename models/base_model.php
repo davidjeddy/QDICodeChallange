@@ -12,13 +12,13 @@ class baseModel
 	/**
 	*Database connection container
 	*/
-	$dbConn = null;
+	private $dbConn = null;
 
 	/**
 	*Status to return to the calling CTL
 	*Typicall boolean or error string
 	*/
-	$returnStatus = null;
+	private $returnStatus = null;
 
 
 	/**
@@ -45,28 +45,28 @@ class baseModel
 	/**
 	*Create a new data record
 	*/
-	function public create($data) {
+	public function create($data) {
 
 	}
 
 	/**
 	*Read a new data record
 	*/
-	function public read($data) {
+	public function read($data) {
 
 	}
 
 	/**
 	*Update a new data record
 	*/
-	function public update($data) {
+	public function update($data) {
 
 	}
 
 	/**
 	*Delete a new data record
 	*/
-	function public delete($data) {
+	public function delete($data) {
 
 	}
 }
