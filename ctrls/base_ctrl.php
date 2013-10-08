@@ -7,7 +7,7 @@
 
 require_once("../models/base_model.php");
 
-class baseModel
+class baseController
 {
 	/**
 	*Request data
@@ -24,10 +24,12 @@ class baseModel
 	/**
 	*Instantiate class and direct logic based on the URL in the POST data
 	*/
-	function __constructor() {
+	function __construct() {
 
+		echo'asdf';
+		exit;
 		//Go sanitize the REQUEST data
-		$this->data = $this->sanitize($_REQUEST[]);
+		$this->data = $this->sanitize($_REQUEST);
 
 		//Data is sanitized, init. the model
 		$this->model = new baseModel();
@@ -135,3 +137,5 @@ class baseModel
 		return $this->model->delete($data);
 	}
 }
+
+$baseController = new baseController();

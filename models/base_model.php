@@ -24,7 +24,7 @@ class baseModel
 	/**
 	*Instantiate class and direct logic based on the URL in the POST data
 	*/
-	function __constructor() {
+	function __construct() {
 
 		//Go sanitize the REQUEST data
 		$this->data = $this->sanitize($_REQUEST[]);
