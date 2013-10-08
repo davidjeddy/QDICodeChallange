@@ -19,8 +19,8 @@ $('[data-spy="scroll"]').each(function () {
 // jQ plugins for CRUD
 /**
  * Execute a CRUD action
- * @author David Eddy
- * @version 0.2.0
+ * @author David Eddy pheagey@gmail.com
+ * @version 0.3.0
  * @since 2013-7-16
  * @param  {[string]} action   = "read" [description]
  * @param  {[string]} data 	   = "json" [description]
@@ -33,10 +33,10 @@ function crudData(action, data, httpType) {
 	if(typeof(data) 	=== 'undefined') data 	= null;
 	if(typeof(httpType) === 'undefined') httpType= "post";
 
+
+
 	/* Add action and http type to data package */
 	out_data = new Object();
-
-
 
 	//TODO Refactor this as a loop that is not dependant on a static form element list
 	out_data["fname"] = data[0].value;
@@ -45,25 +45,27 @@ function crudData(action, data, httpType) {
 	out_data["state"] = data[3].value;
 	out_data["zip"]   = data[4].value;
 
-
-
 	/* add the AJAX/REST actions */
 	out_data["action"] = action;
 	out_data["httpType"] = httpType;
 
 
 
+    //TODO processing animation
 	var promise = $.ajax({
         type: httpType,
         data: out_data,
         dataType: "json",
         url: "./ctrls/base_ctrl.php"
     }).done(function() {
-    	alert( "success" );
+    	//TODO flash row background green to show action completed
+    	console.log( "success" );
   	}).fail(function() {
-    	alert( "error" );
+    	//TODO flash row background red to show action failed
+    	console.log( "error" );
 	}).always(function() {
-    	alert( "complete" );
+    	
+    	//alert( "complete" );
   	});
 };
 
@@ -73,6 +75,7 @@ var current_form_elem = null;
 
 
 
+/* the form logic */
 /* save the currently focused items data */
 $( "form input.form-control, form button.btn").on( "focus", function() {
 	
@@ -94,19 +97,10 @@ $( "form input.form-control, form button.btn").on( "blur", function() {
 	current_form_elem.children('button').addClass("disabled");
 });
 
-/* save changed data */
+
+
+/* The action button (Save/Add) */
 $( "form button.btn" ).on( "click", function() {
-	var data = $(current_form_elem).serializeArray();
-
-	/* Send data to the AJAX-CRUD fn() */
-
-	return crudData("update", data, 'post');	
+	
+	return crudData(current_form_elem.attr('action'), current_form_elem.serializeArray());
 });
-
-
-
-/* For adding new entries */
-$( "button#add_data_button" ).on( "click", function() {
-	return crudData("create", $(this).parent().serialize());
-});
-
