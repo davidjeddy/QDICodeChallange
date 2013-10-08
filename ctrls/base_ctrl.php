@@ -32,23 +32,7 @@ class baseController
 		//Data is sanitized, init. the model
 		$this->model = new baseModel();
 
-		//Now, based on the form action, determine our next move
-		switch ($this->data->action) {
-		    case 'create':
-		        $this->returnData($this->create($this->data));
-		        break;
-		    case 'read':
-		        $this->returnData($this->read($this->data));
-		        break;
-		    case 'update':
-		        $this->returnData($this->update($this->data));
-		        break;
-		    case 'delete':
-		        $this->returnData($this->delete($this->data));
-		        break;
-		    default:
-		    	$this->returnData(null, "No valid action found.");
-		}
+		$this->switchBoard();
 	}
 
 	/**
@@ -87,6 +71,38 @@ class baseController
 	}
 
 	/**
+	*Determine where to go based on the actiom of the form
+	*Eventuall this could be iterated to be RESTful as well
+	*/
+	private function switchBoard() {
+
+		$return_data = array();
+		//Now, based on the form action, determine our next move
+		switch ($this->data->action) {
+		    case 'create':
+		        $this->returnData($this->create($this->data));
+		        break;
+		    case 'read':
+		        $this->returnData($this->read($this->data));
+		        break;
+		    case 'update':
+		        if ($this->update($this->data)) {
+		        	$return_data[] = "Update completed successfully.";
+		        } else {
+		        	$return_data[] = "Update failed.";
+		        }
+
+		        break;
+		    case 'delete':
+		        $this->returnData($this->delete($this->data));
+		        break;
+		    default:
+		    	$this->returnData(null, "No valid action found.");
+		}
+
+		$this->returnData($return_data);
+	}
+
 	*Return all processed data as legit json object
 	*This is the termination of the logic
 	*/
