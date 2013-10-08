@@ -49,7 +49,7 @@ function crudData(action, data, httpType) {
 
     promise.error(function(data) {
     	alert('Error during processing; please try again later.');
-    	console.log("AJAX error: " + data);
+    	console.log(JSON.stringify(data));
     	return false;
     });
 
