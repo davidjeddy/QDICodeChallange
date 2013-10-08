@@ -26,8 +26,6 @@ class baseController
 	*/
 	function __construct() {
 
-		echo'asdf';
-		exit;
 		//Go sanitize the REQUEST data
 		$this->data = $this->sanitize($_REQUEST);
 
@@ -56,22 +54,35 @@ class baseController
 	/**
 	*Sanitize all incoming data before logic is applied
 	*/
-	private function sanitize(REQUEST $request_data) {
-		$return_data = null;
+	private function sanitize(array $data) {
+		
+		// Local return container
+		$return_data = new stdClass();
 		
 		// Remove all non-alphanumeric characters ( and . and spaces)
 		// Reconstruct in $return_data
-		foreach ($request_data as $key => $value) {
+		foreach ($data as $key => $value) {
 
-			//TODO Not the best way but will do for now
-			$key = preg_replace("/[^a-z0-9. ]+/i", "", $key);
-			$return_data[$key] = preg_replace("/[^a-z0-9. ]+/i", "", $value);
+			// Data must be a string to process
+			if (is_string($value)) {
+
+				//TODO Not the best way but will do for now
+				$key = preg_replace("/[^a-z0-9. ]+/i", "", $key);
+				$return_data->{$key} = preg_replace("/[^a-z0-9. ]+/i", "", $value);
+			} else {
+				
+				$this->returnData(null, "Data not in string format.");
+			}
+
 		}
 
-		if ($this->valid == true) {
+
+
+		// Should have a 6 or more fields for processing.
+		if (count((array)$return_data) >= 6) {
 			return $return_data;
 		} else {
-			$this->returnData(null, "Data not valid to process");
+			$this->returnData(null, "Not enough data to process.");
 		}
 	}
 
@@ -108,33 +119,33 @@ class baseController
 	/*
 	* Create a new data record
 	*/
-	public function create($data) {
+	public function create() {
 
-		return $this->model->create($data);
+		return $this->model->create($this->data);
 	}
 
 	/**
 	* Read existing data record
 	*/
-	public function read($data) {
+	public function read() {
 
-		return $this->model->read($data);
+		return $this->model->read($this->data);
 	}
 
 	/**
 	* Update existing data record
 	*/
-	public function update($data) {
+	public function update() {
 
-		return $this->model->update($data);
+		return $this->model->update($this->data);
 	}
 
 	/*
 	* Delete existing data record
 	*/
-	public function delete($data) {
+	public function delete() {
 
-		return $this->model->delete($data);
+		return $this->model->delete($this->data);
 	}
 }
 
