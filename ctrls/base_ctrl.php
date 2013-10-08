@@ -7,7 +7,7 @@
 
 require_once("../models/base_model.php");
 
-class baseController
+class baseModel
 {
 	/**
 	*Request data
@@ -82,7 +82,7 @@ class baseController
 		//Return the error message if it exists
 		if ($msg) {
 			echo json_encode($msg);
-			exit
+			exit;
 
 			//Encode and return data
 		} elseif (!empty($data) && is_array($data)) {
