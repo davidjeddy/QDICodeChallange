@@ -7,7 +7,7 @@
 
 require_once("../models/base_model.php");
 
-class baseController
+class baseModel
 {
 	/**
 	*Request data
@@ -135,3 +135,5 @@ class baseController
 		return $this->model->delete($data);
 	}
 }
+
+$baseModel = new baseModel();
