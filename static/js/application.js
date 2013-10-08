@@ -33,11 +33,29 @@ function crudData(action, data, httpType) {
 	if(typeof(data) 	=== 'undefined') data 	= null;
 	if(typeof(httpType) === 'undefined') httpType= "post";
 
+	/* Add action and http type to data package */
+	out_data = new Object();
+
+
+
+	//TODO Refactor this as a loop that is not dependant on a static form element list
+	out_data["fname"] = data[0].value;
+	out_data["lname"] = data[1].value;
+	out_data["city"]  = data[2].value;
+	out_data["state"] = data[3].value;
+	out_data["zip"]   = data[4].value;
+
+
+
+	/* add the AJAX/REST actions */
+	out_data["action"] = action;
+	out_data["httpType"] = httpType;
+
 
 
 	var promise = $.ajax({
         type: httpType,
-        data: data,
+        data: out_data,
         dataType: "json",
         url: "./ctrls/base_ctrl.php"
     });
@@ -90,7 +108,6 @@ $( "form input.form-control, form button.btn").on( "blur", function() {
 $( "form button.btn" ).on( "click", function() {
 	var data = $(current_form_elem).serializeArray();
 
-	console.log(current_form_elem);
 	/* Send data to the AJAX-CRUD fn() */
 
 	return crudData("update", data, 'post');	
