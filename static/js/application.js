@@ -9,7 +9,7 @@
 //Attach scrollspy to navbar
 
 
-//Call to refresh scrollspy navbar when adding/removing DOM elements
+/* Call to refresh scrollspy navbar when adding/removing DOM elements */
 $('[data-spy="scroll"]').each(function () {
   var $spy = $(this).scrollspy('refresh')
 })
@@ -23,34 +23,23 @@ $('[data-spy="scroll"]').each(function () {
  * @version 0.2.0
  * @since 2013-7-16
  * @param  {[string]} action   = "read" [description]
- * @param  {[string]} dataType = "json" [description]
- * @return {[boolean]} 					[description]
+ * @param  {[string]} data 	   = "json" [description]
+ * @return {[string]} httpType = "post"	[description]
  */
-function crudData(action, data, dataType) {
+function crudData(action, data, httpType) {
 	
 	// 'cause IE is a pos and will not let us set params as null in the method decleration
-	if(typeof(action)==='undefined') 		action = "read";
-		if(typeof(data)==='undefined') 		data = null;
-		if(typeof(dataType)==='undefined') 	dataType = "json";
+	if(typeof(action) 	=== 'undefined') action = "read";
+	if(typeof(data) 	=== 'undefined') data 	= null;
+	if(typeof(httpType) === 'undefined') httpType= "post";
 
 
-
-	var out_data = Object();
-
-	// Extra data to  		
-	out_data.action 	= action;
-	out_data.data 		= data;	
-	out_data.dataType 	= dataType;
-	out_data.start_date = $("#start_date").val();
-	out_data.end_date 	= $("#end_date").val();
-
-	console.log(out_data);
 
 	var promise = $.ajax({
-        type: "POST",
-        data: {data: out_data},
-        dataType: dataType,
-        url: "../app.py"
+        type: httpType,
+        data: data,
+        dataType: "json",
+        url: "./ctrls/base_ctrl.php"
     });
 
     promise.success(function(data) {
@@ -73,7 +62,6 @@ function crudData(action, data, dataType) {
 
 
 var current_form_elem = null;
-var current_form_data = null;
 
 
 
@@ -98,17 +86,19 @@ $( "form input.form-control, form button.btn").on( "blur", function() {
 	current_form_elem.children('button').addClass("disabled");
 });
 
-
-
 /* save changed data */
-$( "div#data_container.scrollspy div#a.bs-example button.btn" ).on( "click", function() {
-	var data = $(this).parent().serialize();
-	console.log(data);
+$( "form button.btn" ).on( "click", function() {
+	var data = $(current_form_elem).serializeArray();
+
+	console.log(current_form_elem);
+	/* Send data to the AJAX-CRUD fn() */
+
+	return crudData("update", data, 'post');	
 });
 
 
 
-/* for adding new entries */
+/* For adding new entries */
 $( "button#add_data_button" ).on( "click", function() {
 	return crudData("create", $(this).parent().serialize());
 });

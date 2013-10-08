@@ -11,3 +11,11 @@ Install:
 Testing:
 ConMan uses phpunit for testing. All tests can be found within the ./tests/ dir
 To test change to the working dir and run phpunit using the config file.
+
+Action Mapping:
+(Source http://en.wikipedia.org/wiki/Create,_read,_update_and_delete)
+CRUD Operation		SQL		HTTP
+Create				INSERT	POST
+Read (Retrieve)		SELECT	GET
+Update (Modify)		UPDATE	PUT / PATCH
+Delete (Destroy)	DELETE	DELETE
