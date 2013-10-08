@@ -72,30 +72,30 @@ function crudData(action, data, dataType) {
 
 
 
-var current_data = null;
+var current_form_elem = null;
+var current_form_data = null;
+
 
 
 /* save the currently focused items data */
-$( "form input.form-control").on( "click", function() {
-	current_data = $(this).val();
+$( "form input.form-control, form button.btn").on( "focus", function() {
+	
+	console.log('Form element focused');
+
+	/* load form data into an array */
+	current_form_elem = $(this).closest("form");
+
+	/* enable the save button */
+	current_form_elem.children('button').removeClass("disabled");
 });
 
-
-
-/* if the data changes, enable the save option */
-$( "form input.form-control").on( "keyup keypress blur chang", function() {
+/* Disable button when form is blur'd */
+$( "form input.form-control, form button.btn").on( "blur", function() {
 	
-	// if the value of the field is different that original enable to save option when changed.
-	if (current_data != $(this).val()) {
-	 	
-	 	$(this).siblings().removeClass('disabled');
-	} else if (current_data == $(this).val()) {
-		
-		$(this).siblings('button.btn').addClass('disabled');
-	}
+	console.log('Form element blured');
 
-	console.log(current_data);
-	console.log($(this).val());
+	/* disable the save button */
+	current_form_elem.children('button').addClass("disabled");
 });
 
 
