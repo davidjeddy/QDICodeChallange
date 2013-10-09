@@ -29,17 +29,10 @@ class baseController
 		//Data is sanitized, init. the model
 		$this->baseModel = new baseModel();
 
-		//Get all the data on the initial execution or if
-		//no action is specified
+		$this->data = $this->sanitize($_REQUEST);			
 
-		if ($this->data == null || empty($this->data)) {
+		$this->switchBoard();
 
-			$this->returnData($this->read());
-		} else {
-			//Go sanitize the REQUEST data
-			$this->data = $this->sanitize($_REQUEST);			
-			$this->switchBoard();
-		}
 	}
 
 	/**
@@ -69,10 +62,17 @@ class baseController
 
 
 
-		// Should have a 6 or more fields for processing.
-		if (count((array)$return_data) >= 6) {
+		//if get request, only the action needs to be get
+		//OR if not get must have 7 elements or more
+		if ($return_data->action == "get"
+			|| ($return_data->action != "get"
+				&& count((array)$return_data) >= 6
+			)
+		) {
+			
 			return $return_data;
 		} else {
+			
 			$this->returnData(null, "Not enough data to process.");
 		}
 	}
