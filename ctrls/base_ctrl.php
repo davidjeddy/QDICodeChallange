@@ -121,7 +121,7 @@ class baseController
 	*/
 	public function create() {
 
-		return $this->model->create($this->data);
+		return $this->baseModel->create($this->data);
 	}
 
 	/**
@@ -129,7 +129,7 @@ class baseController
 	*/
 	public function read() {
 
-		return $this->model->read($this->data);
+		return $this->mobaseModeldel->read($this->data);
 	}
 
 	/**
@@ -137,7 +137,7 @@ class baseController
 	*/
 	public function update() {
 
-		return $this->model->update($this->data);
+		return $this->baseModel->update($this->data);
 	}
 
 	/*
@@ -145,7 +145,7 @@ class baseController
 	*/
 	public function delete() {
 
-		return $this->model->delete($this->data);
+		return $this->baseModel->delete($this->data);
 	}
 }
 
