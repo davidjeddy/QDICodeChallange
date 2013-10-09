@@ -69,10 +69,7 @@ class baseView
                         data-spy="scroll"
                         data-target="#navbar"
                         data-offset="0"
-                    >
-                        asdfasdf
-
-                    </div>
+                    ></div>
 
 
 
