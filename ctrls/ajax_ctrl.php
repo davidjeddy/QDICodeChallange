@@ -24,7 +24,7 @@ class baseController
 	/**
 	*Instantiate class and direct logic based on the URL in the POST data
 	*/
-	function __construct() {
+	public function __construct() {
 
 		//Data is sanitized, init. the model
 		$this->baseModel = new baseModel();
@@ -93,7 +93,7 @@ class baseController
 		        if ($this->create($this->data)) {
 		        	$return_data = "Create completed successfully.";
 		        } else {
-		        	$return_data = "Create failed.";
+		        	$return_data = false;
 		        }
 
 		        break;
@@ -102,15 +102,15 @@ class baseController
 		    	$return_data = $this->read($this->data);
 		        
 		        if (is_bool($return_data)) {
-		        	$return_data= "Read failed.";
+		        	$return_data = false;
 		        }
 
 		        break;
 		    case 'patch':
 		        if ($this->update($this->data)) {
-		        	$return_data = "Update completed successfully.";
+		        	$return_data = array("Update completed successfully.");
 		        } else {
-		        	$return_data = "Update failed.";
+		        	$return_data = false;
 		        }
 
 		        break;
@@ -118,7 +118,7 @@ class baseController
 		        if ($this->delete($this->data)) {
 		        	$return_data = "Deleted action successfull.";
 		        } else {
-		        	$return_data = "Deleted failed.";
+		        	$return_data = false;
 		        }
 
 		        break;
@@ -146,6 +146,9 @@ class baseController
 			echo(json_encode($data));
 			exit;
 
+		} else {
+			print_r(json_encode($data));
+			exit;			
 		}
 
 		//...and for safe measure
@@ -176,6 +179,7 @@ class baseController
 	* Update existing data record
 	*/
 	public function update() {
+		
 		return $this->baseModel->update($this->data);
 	}
 
@@ -187,5 +191,6 @@ class baseController
 		return $this->baseModel->delete($this->data);
 	}
 }
+
 
 $baseController = new baseController();

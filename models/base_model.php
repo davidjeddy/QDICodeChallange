@@ -91,7 +91,30 @@ class baseModel
 	*Update a new data record
 	*/
 	public function update($data) {
-		return true;
+
+		try{
+
+			$stmt = $this->dbConn->prepare("
+				UPDATE contacts 
+		    	SET fname = ?, lname = ?, city = ?, state = ?, zip = ?
+		    	WHERE id = ?
+		    ");
+
+			$stmt->execute(array(
+				$data->fname,
+				$data->lname,
+				$data->city,
+				$data->state,
+				$data->zip,
+				$data->id)
+			);
+
+			return true;
+		} catch (PDOException $e) {
+			
+			return "Connection error, because: ".$e->getMessage();
+		}
+
 	}
 
 	/**

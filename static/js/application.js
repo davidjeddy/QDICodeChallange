@@ -47,48 +47,55 @@ function crudData(action, data) {
 	out_data["action"] = action;
 
 
+	console.log(out_data);
 
     //TODO processing animation
 	var promise = $.ajax({
-        type: action,
+        type: "get",
         data: out_data,
         dataType: "json",
         url: "./ctrls/ajax_ctrl.php"
     }).done(function(data) {
-    	//console.log( "success: "+JSON.stringify(data, undefined, 2));
-    	
-    	//TODO flash row background green to show action completed
 		//TODO objects alphabetically based on fname
-		$("#data_container.scrollspy").empty();
 
-		var new_html = "";
-		//TODO refactor this to loop over all the fields returned, stoping @ count 6
-		$.each(data, function(i){
+		//Repopulate the content area only if the returned data is a list of contacts
+		if (data[0].id) {
 
-			//TODO add this starter when w new letter is reached: '<div class="bs-example id="//first letter//">
-			new_html += '\
-			<div class="bs-example">\
-                <form>\
-                    <input type="hidden"    class="form-control" name="id" 		value="'+data[i].id+'" />\
-                    <input type="text"      class="form-control" name="fname" 	value="'+data[i].fname+'" />\
-                    <input type="text"      class="form-control" name="lname" 	value="'+data[i].lname+'" />\
-                    <input type="text"      class="form-control" name="city" 	value="'+data[i].city+'" />\
-                    <input type="text"      class="form-control" name="state" 	value="'+data[i].state+'" />\
-                    <input type="text"      class="form-control" name="zip" 	value="'+data[i].zip+'" />\
-                    <button type="button"   class="btn btn-success update_data_button disabled" data-loading-text="Update" >Update</button>\
-                    <button type="button" 	class="btn btn-warning delete_data_button disabled" data-loading-text="Delete" >Delete</button>\
-                </form>\
-            </div>';
-		});
+			$("#data_container.scrollspy").empty();
+
+			var new_html = "";
+			
+			//TODO refactor this to loop over all the fields returned, stoping @ count 6
+			$.each(data, function(i){
+
+				console.log(data);
+				//TODO add this starter when w new letter is reached: '<div class="bs-example id="//first letter//">
+				new_html += '\
+				<div class="bs-example">\
+	                <form>\
+	                    <input type="hidden"    class="form-control" name="id" 		maxlength="11" value="'+data[i].id+'" />\
+	                    <input type="text"      class="form-control" name="fname" 	maxlength="32" value="'+data[i].fname+'" />\
+	                    <input type="text"      class="form-control" name="lname" 	maxlength="32" value="'+data[i].lname+'" />\
+	                    <input type="text"      class="form-control" name="city" 	maxlength="32" value="'+data[i].city+'" />\
+	                    <input type="text"      class="form-control" name="state" 	maxlength="2" value="'+data[i].state+'" />\
+	                    <input type="text"      class="form-control" name="zip" 	maxlength="5" value="'+data[i].zip+'" />\
+	                    <button type="button"   class="btn btn-success update_data_button disabled" data-loading-text="Update" >Update</button>\
+	                    <button type="button" 	class="btn btn-warning delete_data_button disabled" data-loading-text="Delete" >Delete</button>\
+	                </form>\
+	            </div>';
+			});
+		} else {
+
+    		//TODO flash row background green to show action completed
+    		console.log( "Actio successful: "+JSON.stringify(data, undefined, 2));
+		}
 
 		//Append all the new data
 		$("#data_container.scrollspy").append(new_html);
+  	}).fail(function(data) {
 
-
-
-  	}).fail(function() {
     	//TODO flash row background red to show action failed
-    	console.log( "error: "+data );
+    	console.log( "error: "+JSON.stringify(data, undefined, 2));
 	});
 };
 
