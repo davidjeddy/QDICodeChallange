@@ -91,9 +91,15 @@ class baseModel
 		try{
 
 			$stmt = $this->dbConn->prepare("
-				UPDATE contacts 
-		    	SET fname = ?, lname = ?, city = ?, state = ?, zip = ?
-		    	WHERE id = ?
+				UPDATE ".db_name.".contacts 
+
+		    	SET ".db_table.".fname = ?,
+		    		".db_table.".lname = ?,
+		    		".db_table.".city = ?,
+		    		".db_table.".state = ?,
+		    		".db_table.".zip = ?
+
+		    	WHERE ".db_table.".id = ?
 		    ");
 
 			$stmt->execute(array(
@@ -110,13 +116,23 @@ class baseModel
 			
 			return "Connection error, because: ".$e->getMessage();
 		}
-
 	}
 
 	/**
 	*Delete a new data record
 	*/
 	public function delete($data) {
-		return true;
+		
+		//NEVER really delete data. Just mark it as deleted with the datetime of action
+		$stmt = $this->dbConn->prepare("
+			UPDATE ".db_name.".contacts 
+
+			SET  ".db_table.".deleted = '".date('Y-m-d h:m:s')."'
+
+			WHERE ".db_table.".id = ?
+		");
+		
+		return $stmt->execute(array($data->id));
+
 	}
 }

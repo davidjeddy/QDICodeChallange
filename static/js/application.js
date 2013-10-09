@@ -60,7 +60,10 @@ function crudData(action, data) {
 		//TODO objects alphabetically based on fname
 
 		//Repopulate the content area only if the returned data is a list of contacts
-		if (data[0].id) {
+		if ((action == "post"
+			|| action == "get")
+			&& data[0].id
+		) {
 
 			$("#data_container.scrollspy").empty();
 
@@ -87,8 +90,9 @@ function crudData(action, data) {
 			});
 		} else {
 
-    		//TODO flash row background green to show action completed
+    		//TODO response based on action and ajax return
     		console.log(JSON.stringify(data, undefined, 2));
+    		
 		}
 
 		//Append all the new data
@@ -130,7 +134,6 @@ $( document ).on( "blur", "form input.form-control, form button.btn", function()
 
 /*TODO enable delete button on hover */
 //This would be done but jquery does not propigate events on disabled elements.
-
 
 /* What to do when a bttn is pressed */
 $( document ).on( "click", "form button.btn", function() {
