@@ -6,6 +6,8 @@
 *date 2013-10-08
 */
 
+require_once("../settings.php");
+
 class baseModel
 {
 
@@ -19,15 +21,22 @@ class baseModel
 	*Typicall boolean or error string
 	*/
 	private $returnStatus = null;
+	/**
+	*Container for data to be processed
+	*/
+	$data = null;
 
 
 	/**
 	*Init. the class, create connection
 	*/
-	function __construct() {
-
+	function __construct($data) {
 		//Real escape the string, even though the ctrl sanitized it
 		//One can never be to safe
+		$this->data = $data;
+
+
+		$this->dbConn = new PDO;
 	}
 
 	/**
@@ -50,10 +59,26 @@ class baseModel
 	}
 
 	/**
-	*Read a new data record
+	*Read all the data
 	*/
 	public function read($data) {
+		$return_data = array();
 
+		$stmt = "SELECT * FROM ".db_name.".".db_table."";
+
+		try {
+			
+			foreach ($this->dbConn->query($sql) as $row) {
+				$return_data[] = $row;
+			}
+
+			return $return_data;
+		} Catch (exception $e) {
+			return $e;
+		}
+
+		//failover
+		return false;
 	}
 
 	/**
@@ -70,5 +95,3 @@ class baseModel
 
 	}
 }
-
-$baseModel = new baseModel();
