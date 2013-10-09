@@ -1,4 +1,4 @@
-<?
+<?php
 /**
 *Application settings
 */
@@ -9,4 +9,5 @@ define("dir_sep", "\\");
 
 define("db_user", "Pheagey");
 define("db_pass", "Asdf1234");
-define("db_table", "qdi");
+define("db_name", "qdi");
+define("db_table", "contacts");
