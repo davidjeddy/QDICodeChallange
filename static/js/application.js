@@ -26,12 +26,11 @@ $('[data-spy="scroll"]').each(function () {
  * @param  {[string]} data 	   = "json" [description]
  * @return {[string]} httpType = "post"	[description]
  */
-function crudData(action, data, httpType) {
+function crudData(action, data) {
 	
 	// 'cause IE is a pos and will not let us set params as null in the method decleration
-	if(typeof(action) 	=== 'undefined') action = "read";
+	if(typeof(action) 	=== 'undefined') action = "get";
 	if(typeof(data) 	=== 'undefined') data 	= null;
-	if(typeof(httpType) === 'undefined') httpType= "post";
 
 
 
@@ -46,21 +45,20 @@ function crudData(action, data, httpType) {
 
 	/* add the AJAX/REST actions */
 	out_data["action"] = action;
-	out_data["httpType"] = httpType;
 
 
 
     //TODO processing animation
 	var promise = $.ajax({
-        type: httpType,
+        type: action,
         data: out_data,
         dataType: "json",
         url: "./ctrls/ajax_ctrl.php"
     }).done(function(data) {
-    	//TODO flash row background green to show action completed
     	//console.log( "success: "+JSON.stringify(data, undefined, 2));
-
-    	//todo objects alphabetically based on fname
+    	
+    	//TODO flash row background green to show action completed
+		//TODO objects alphabetically based on fname
 		$("#data_container.scrollspy").empty();
 
 		var new_html = "";
@@ -145,5 +143,7 @@ $( document ).on( "click", "form button.btn", function() {
 
 
 $( document ).ready(function() {
-    var data = crudData();
+    
+    //inital data loading once the document hasa loaded
+    crudData("get", null);
 });
