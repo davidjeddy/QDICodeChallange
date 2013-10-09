@@ -83,7 +83,7 @@ class baseController
 	*/
 	private function switchBoard() {
 
-		$return_data = array();
+		$return_data = null;
 		
 		//Now, based on the form action, determine our next move
 		//This is the HTTP rewquest type <-> CRUD convertion
@@ -91,39 +91,41 @@ class baseController
 		switch ($this->data->action) {
 		    case 'post':
 		        if ($this->create($this->data)) {
-		        	$return_data[] = "Create completed successfully.";
+		        	$return_data = "Create completed successfully.";
 		        } else {
-		        	$return_data[] = "Create failed.";
+		        	$return_data = "Create failed.";
 		        }
 
 		        break;
 		    case 'get':
-		        if ($return_data = $this->read($this->data)) {
-		        	$return_data[] = $return_data;
-		        } else {
-		        	$return_data[] = "Read failed.";
+
+		    	$return_data = $this->read($this->data);
+		        
+		        if (is_bool($return_data)) {
+		        	$return_data= "Read failed.";
 		        }
 
 		        break;
 		    case 'patch':
 		        if ($this->update($this->data)) {
-		        	$return_data[] = "Update completed successfully.";
+		        	$return_data = "Update completed successfully.";
 		        } else {
-		        	$return_data[] = "Update failed.";
+		        	$return_data = "Update failed.";
 		        }
 
 		        break;
 		    case 'delete':
 		        if ($this->delete($this->data)) {
-		        	$return_data[] = "Deleted action successfull.";
+		        	$return_data = "Deleted action successfull.";
 		        } else {
-		        	$return_data[] = "Deleted failed.";
+		        	$return_data = "Deleted failed.";
 		        }
 
 		        break;
 		    default:
 		    	$this->returnData(null, "No valid action found.");
 		}
+
 
 		$this->returnData($return_data);
 	}
