@@ -61,7 +61,37 @@ function crudData(action, data, httpType) {
         url: "./ctrls/ajax_ctrl.php"
     }).done(function(data) {
     	//TODO flash row background green to show action completed
-    	console.log( "success: "+JSON.stringify(data, undefined, 2));
+    	//console.log( "success: "+JSON.stringify(data, undefined, 2));
+
+    	//todo objects alphabetically based on fname
+		$("#data_container.scrollspy").empty();
+
+		var new_html = "";
+		//TODO refactor this to loop over all the fields returned, stoping @ count 6
+		$.each(data, function(i){
+
+			//TODO add this starter when w new letter is reached: '<div class="bs-example id="//first letter//">
+			new_html += '\
+			<div class="bs-example">\
+                <form action="patch">\
+                    <input type="hidden"    class="form-control" name="fname"    value="'+data[i].id+'" />\
+                    <input type="text"      class="form-control" name="fname"    value="'+data[i].fname+'" />\
+                    <input type="text"      class="form-control" name="lname"    value="'+data[i].lname+'" />\
+                    <input type="text"      class="form-control" name="city"     value="'+data[i].city+'" />\
+                    <input type="text"      class="form-control" name="state"    value="'+data[i].state+'" />\
+                    <input type="text"      class="form-control" name="zip"      value="'+data[i].zip+'" />\
+                    <button type="button"   class="btn btn-success disabled update_data_button" data-loading-text="Update" >Update</button>\
+                </form>\
+            </div>';
+			console.log(data)
+		});
+
+	$("#data_container.scrollspy").append(new_html);
+
+	//TODO re-init all the buttons that just got added
+
+
+
   	}).fail(function() {
     	//TODO flash row background red to show action failed
     	console.log( "error: "+data );
@@ -107,5 +137,7 @@ $( "form button.btn" ).on( "click", function() {
 
 
 $( document ).ready(function() {
-    crudData();
+    var data = crudData();
+
+
 });
