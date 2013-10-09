@@ -1,5 +1,5 @@
 Requirements:
-php (with openssl & cURL enabled), mysql, composer (included)
+php 5.3+ (with openssl & cURL enabled), mysql 5.6+, composer (included)
 
 Install:
 1) Change to working dir
