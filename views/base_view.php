@@ -72,18 +72,22 @@ class baseView
                     >
 
                         <!-- Loop this part -->
-                        <?php foreach ($this->alphabet as $letter) { ?>
-                        <div class="bs-example" id="<?= $letter; ?>">
-                            <form action="patch">
-                                <input type="text" class="form-control" name="fname"    value="<?= $letter; ?> Add FName" />
-                                <input type="text" class="form-control" name="lname"    value="LName" />
-                                <input type="text" class="form-control" name="city"     value="City" />
-                                <input type="text" class="form-control" name="state"    value="State" />
-                                <input type="text" class="form-control" name="zip"      value="Zip" />
-                                <button type="button" class="btn btn-success disabled update_data_button" data-loading-text="Update" >Update</button>
-                            </form>
-                        </div>
-                        <?php } ?>
+                        <?php
+                        if (!empty($this->data)) {
+                            foreach ($this->data as $data) { ?>
+                            <div class="bs-example" id="<?= $letter; ?>">
+                                <form action="patch">
+                                    <input type="hidden"    class="form-control" name="fname"    value="<?= $this->data->id; ?>" />
+                                    <input type="text"      class="form-control" name="fname"    value="<?= $this->data->fname; ?>" />
+                                    <input type="text"      class="form-control" name="lname"    value="<?= $this->data->lname; ?>" />
+                                    <input type="text"      class="form-control" name="city"     value="<?= $this->data->city; ?>" />
+                                    <input type="text"      class="form-control" name="state"    value="<?= $this->data->state; ?>" />
+                                    <input type="text"      class="form-control" name="zip"      value="<?= $this->data->zip; ?>" />
+                                    <button type="button"   class="btn btn-success disabled update_data_button" data-loading-text="Update" >Update</button>
+                                </form>
+                            </div>
+                        <?php }
+                        } ?>
                     </div>
 
 
