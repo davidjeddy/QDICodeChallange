@@ -18,7 +18,7 @@ class baseController
 	/**
 	*The model container
 	*/
-	private $model = null;
+	private $baseModel = null;
 
 
 
@@ -28,14 +28,14 @@ class baseController
 	function __construct() {
 
 		//Data is sanitized, init. the model
-		$this->model = new baseModel();
+		$this->baseModel = new baseModel();
 
 		//Get all the data on the initial execution or if
 		//no action is specified
 
 		if ($this->data == null || empty($this->data)) {
 
-			$this->read();
+			$this->returnData($this->read());
 		} else {
 			//Go sanitize the REQUEST data
 			$this->data = $this->sanitize($_REQUEST);			
@@ -142,7 +142,7 @@ class baseController
 
 			//Encode and return data
 		} elseif (!empty($data) && is_array($data)) {
-			print_r(json_encode($data));
+			echo(json_encode($data));
 			exit;
 
 		}
@@ -168,7 +168,7 @@ class baseController
 	*/
 	public function read() {
 
-		return $this->mobaseModeldel->read();
+		return $this->baseModel->read();
 	}
 
 	/**

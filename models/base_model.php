@@ -32,7 +32,7 @@ class baseModel
 	*/
 	function __construct($data = null) {
 
-		$this->dbConn = new PDO();
+		$this->dbConn = new PDO("mysql:dbname=".db_name.";host=".db_host."", db_user, db_pass);
 
 
 
@@ -68,13 +68,13 @@ class baseModel
 	/**
 	*Read all the data
 	*/
-	public function read($data) {
+	public function read() {
 		$return_data = array();
 		$stmt = "SELECT * FROM ".db_name.".".db_table."";
 
 		try {
 			
-			foreach ($this->dbConn->query($sql) as $row) {
+			foreach ($this->dbConn->query($stmt) as $row) {
 				$return_data[] = $row;
 			}
 
