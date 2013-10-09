@@ -6,7 +6,7 @@
 *date 2013-10-08
 */
 
-require_once("./settings.php");
+
 
 class baseModel
 {

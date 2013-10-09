@@ -39,11 +39,13 @@ function crudData(action, data, httpType) {
 	out_data = new Object();
 
 	//TODO Refactor this as a loop that is not dependant on a static form element list
-	out_data["fname"] = data[0].value;
-	out_data["lname"] = data[1].value;
-	out_data["city"]  = data[2].value;
-	out_data["state"] = data[3].value;
-	out_data["zip"]   = data[4].value;
+	if (data != null) {
+		out_data["fname"] = data[0].value;
+		out_data["lname"] = data[1].value;
+		out_data["city"]  = data[2].value;
+		out_data["state"] = data[3].value;
+		out_data["zip"]   = data[4].value;
+	}
 
 	/* add the AJAX/REST actions */
 	out_data["action"] = action;
@@ -56,17 +58,14 @@ function crudData(action, data, httpType) {
         type: httpType,
         data: out_data,
         dataType: "json",
-        url: "./ctrls/base_ctrl.php"
-    }).done(function() {
+        url: "./ctrls/ajax_ctrl.php"
+    }).done(function(data) {
     	//TODO flash row background green to show action completed
-    	console.log( "success" );
+    	console.log( "success: "+JSON.stringify(data, undefined, 2));
   	}).fail(function() {
     	//TODO flash row background red to show action failed
-    	console.log( "error" );
-	}).always(function() {
-    	
-    	//alert( "complete" );
-  	});
+    	console.log( "error: "+data );
+	});
 };
 
 
@@ -103,4 +102,10 @@ $( "form input.form-control, form button.btn").on( "blur", function() {
 $( "form button.btn" ).on( "click", function() {
 	
 	return crudData(current_form_elem.attr('action'), current_form_elem.serializeArray());
+});
+
+
+
+$( document ).ready(function() {
+    crudData();
 });

@@ -116,5 +116,3 @@ class baseView
         <?php
     }
 }
-
-$baseView = new baseView();
