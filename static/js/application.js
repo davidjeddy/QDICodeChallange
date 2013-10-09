@@ -80,10 +80,12 @@ function crudData(action, data, httpType) {
                     <input type="text"      class="form-control" name="city"     value="'+data[i].city+'" />\
                     <input type="text"      class="form-control" name="state"    value="'+data[i].state+'" />\
                     <input type="text"      class="form-control" name="zip"      value="'+data[i].zip+'" />\
-                    <button type="button"   class="btn btn-success disabled update_data_button" data-loading-text="Update" >Update</button>\
+                    <button type="button"   class="btn btn-success update_data_button disabled" data-loading-text="Update" >Update</button>\
+                    <button type="button" 	class="btn btn-warning delete_data_button disabled" data-loading-text="Delete" >Delete</button>\
                 </form>\
             </div>';
-			console.log(data)
+
+			console.log(data);
 		});
 
 	$("#data_container.scrollspy").append(new_html);
@@ -106,7 +108,7 @@ var current_form_elem = null;
 
 /* the form logic */
 /* save the currently focused items data */
-$( "form input.form-control, form button.btn").on( "focus", function() {
+$( document ).on( "focus", "form input.form-control, form button.btn", function() {
 	
 	console.log('Form element focused');
 
@@ -118,7 +120,7 @@ $( "form input.form-control, form button.btn").on( "focus", function() {
 });
 
 /* Disable button when form is blur'd */
-$( "form input.form-control, form button.btn").on( "blur", function() {
+$( document ).on( "blur", "form input.form-control, form button.btn", function() {
 	
 	console.log('Form element blured');
 
@@ -129,7 +131,7 @@ $( "form input.form-control, form button.btn").on( "blur", function() {
 
 
 /* The action button (Save/Add) */
-$( "form button.btn" ).on( "click", function() {
+$( document ).on( "form button.btn", function() {
 	
 	return crudData(current_form_elem.attr('action'), current_form_elem.serializeArray());
 });
