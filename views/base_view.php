@@ -18,6 +18,15 @@ class baseView
         $this->alphabet = $data;
     }
 
+    public function setData($data) {
+        $this->data = $data;
+    }
+
+    public function getData() {
+        return $data;
+    }
+
+
     public function __construct() {
         $this->renderView();
     }

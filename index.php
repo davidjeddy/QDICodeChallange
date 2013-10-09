@@ -14,4 +14,4 @@
 require_once("./settings.php");
 
 //Load view
-require_once("./views/base_view.php");
+require_once("./ctrls/base_ctrl.php");

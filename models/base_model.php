@@ -24,7 +24,7 @@ class baseModel
 	/**
 	*Container for data to be processed
 	*/
-	$data = null;
+	private $data = null;
 
 
 	/**

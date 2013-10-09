@@ -5,7 +5,8 @@
 *date 2013-10-08
 */
 
-require_once("../models/base_model.php");
+require_once("./views/base_view.php");
+require_once("./models/base_model.php");
 
 class baseController
 {
@@ -32,7 +33,15 @@ class baseController
 		//Data is sanitized, init. the model
 		$this->model = new baseModel();
 
-		$this->switchBoard();
+		//Get all the data on the initial execution or if
+		//no action is specified
+		if ($this->data == null || empty($this->data)) {
+
+			$this->read();
+		} else {
+			
+			$this->switchBoard();
+		}
 	}
 
 	/**
@@ -160,7 +169,7 @@ class baseController
 	*/
 	public function read() {
 
-		return $this->mobaseModeldel->read($this->data);
+		return $this->mobaseModeldel->read();
 	}
 
 	/**
