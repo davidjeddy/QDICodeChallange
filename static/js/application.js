@@ -49,6 +49,7 @@ function crudData(action, data) {
 
 	console.log(out_data);
 
+
     //TODO processing animation
 	var promise = $.ajax({
         type: "get",
@@ -87,7 +88,7 @@ function crudData(action, data) {
 		} else {
 
     		//TODO flash row background green to show action completed
-    		console.log( "Actio successful: "+JSON.stringify(data, undefined, 2));
+    		console.log(JSON.stringify(data, undefined, 2));
 		}
 
 		//Append all the new data
@@ -127,9 +128,11 @@ $( document ).on( "blur", "form input.form-control, form button.btn", function()
 	current_form_elem.children('button').addClass("disabled");
 });
 
+/*TODO enable delete button on hover */
+//This would be done but jquery does not propigate events on disabled elements.
 
 
-/* The action button (Save/Add) */
+/* What to do when a bttn is pressed */
 $( document ).on( "click", "form button.btn", function() {
 
 	//Determine HTTP request method based on the class the button contains

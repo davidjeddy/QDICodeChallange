@@ -100,7 +100,7 @@ class baseController
 		    case 'get':
 
 		    	$return_data = $this->read($this->data);
-		        
+
 		        if (is_bool($return_data)) {
 		        	$return_data = false;
 		        }

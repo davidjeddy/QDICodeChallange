@@ -59,7 +59,9 @@ class baseModel
 	*Read all the data
 	*/
 	public function read() {
+
 		$return_data = array();
+
 		$stmt = "
 			SELECT *
 			FROM ".db_name.".".db_table."
