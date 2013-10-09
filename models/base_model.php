@@ -34,16 +34,6 @@ class baseModel
 
 		$this->dbConn = new PDO("mysql:dbname=".db_name.";host=".db_host."", db_user, db_pass);
 
-
-
-		if ($data == null) {
-
-			return $this->read();
-		} else {
-
-			$this->data = $data;
-			return $this->{$this->data->action}();
-		}
 	}
 
 	/**
@@ -70,7 +60,11 @@ class baseModel
 	*/
 	public function read() {
 		$return_data = array();
-		$stmt = "SELECT * FROM ".db_name.".".db_table."";
+		$stmt = "
+			SELECT *
+			FROM ".db_name.".".db_table."
+			WHERE `deleted` IS Null
+		";
 
 		try {
 			
