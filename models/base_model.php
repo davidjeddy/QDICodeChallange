@@ -6,7 +6,7 @@
 *date 2013-10-08
 */
 
-require_once("../settings.php");
+require_once("./settings.php");
 
 class baseModel
 {
@@ -30,13 +30,20 @@ class baseModel
 	/**
 	*Init. the class, create connection
 	*/
-	function __construct($data) {
-		//Real escape the string, even though the ctrl sanitized it
-		//One can never be to safe
-		$this->data = $data;
+	function __construct($data = null) {
+
+		$this->dbConn = new PDO();
 
 
-		$this->dbConn = new PDO;
+
+		if ($data == null) {
+
+			return $this->read();
+		} else {
+
+			$this->data = $data;
+			return $this->{$this->data->action}();
+		}
 	}
 
 	/**

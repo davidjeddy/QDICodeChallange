@@ -27,19 +27,18 @@ class baseController
 	*/
 	function __construct() {
 
-		//Go sanitize the REQUEST data
-		$this->data = $this->sanitize($_REQUEST);
-
 		//Data is sanitized, init. the model
 		$this->model = new baseModel();
 
 		//Get all the data on the initial execution or if
 		//no action is specified
+
 		if ($this->data == null || empty($this->data)) {
 
 			$this->read();
 		} else {
-			
+			//Go sanitize the REQUEST data
+			$this->data = $this->sanitize($_REQUEST);			
 			$this->switchBoard();
 		}
 	}
