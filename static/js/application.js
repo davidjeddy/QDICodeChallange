@@ -55,42 +55,76 @@ function crudData(action, data) {
         dataType: "json",
         url: "./ctrls/ajax_ctrl.php"
     }).done(function(data) {
+
+    	//empty status bar
+    	$("#flash_msg").empty();
+
+
 		//TODO objects alphabetically based on fname
 
-		//Repopulate the content area only if the returned data is a list of contacts
-		if ((action == "post"
-			|| action == "get")
-			&& data[0].id
-		) {
+		//create
+ 		if (action == "post" && data.bool == true) {
 
-			$("#data_container.scrollspy").empty();
+    		//show message
+    		$("#flash_msg").html(data.msg);
 
-			var new_html = "";
-			
-			//TODO refactor this to loop over all the fields returned, stoping @ count 6
-			$.each(data, function(i){
+    		if (data.bool == true) {
+    			//scroll scrollspy to the bottome
+    			//add a new entry
+    		}
+		//read
+		} else if (action == "get") {
 
-				//TODO add this starter when w new letter is reached: '<div class="bs-example id="//first letter//">
-				new_html += '\
-				<div class="bs-example">\
-	                <form>\
-	                    <input type="hidden"    class="form-control" name="id" 		maxlength="11" value="'+data[i].id+'" />\
-	                    <input type="text"      class="form-control" name="fname" 	maxlength="32" value="'+data[i].fname+'" />\
-	                    <input type="text"      class="form-control" name="lname" 	maxlength="32" value="'+data[i].lname+'" />\
-	                    <input type="text"      class="form-control" name="city" 	maxlength="32" value="'+data[i].city+'" />\
-	                    <input type="text"      class="form-control" name="state" 	maxlength="2" value="'+data[i].state+'" />\
-	                    <input type="text"      class="form-control" name="zip" 	maxlength="5" value="'+data[i].zip+'" />\
-	                    <button type="button"   class="btn btn-success update_data_button disabled" data-loading-text="Update" >Update</button>\
-	                    <button type="button" 	class="btn btn-warning delete_data_button disabled" data-loading-text="Delete" >Delete</button>\
-	                </form>\
-	            </div>';
-			});
-		} else {
+			if (data.bool == true) {
+				var new_html = "";
+				
+				//TODO refactor this to loop over all the fields returned, stoping @ count 6
+				$.each(data.msg, function(i){
 
-    		//TODO response based on action and ajax return
-    		console.log(JSON.stringify(data, undefined, 2));
-    		
+					//TODO add this starter when w new letter is reached: '<div class="bs-example id="//first letter//">
+					new_html += '\
+					<div class="bs-example">\
+		                <form>\
+		                    <input type="hidden"    class="form-control" name="id" 		maxlength="11" value="'+data.msg[i].id+'" />\
+		                    <input type="text"      class="form-control" name="fname" 	maxlength="32" value="'+data.msg[i].fname+'" />\
+		                    <input type="text"      class="form-control" name="lname" 	maxlength="32" value="'+data.msg[i].lname+'" />\
+		                    <input type="text"      class="form-control" name="city" 	maxlength="32" value="'+data.msg[i].city+'" />\
+		                    <input type="text"      class="form-control" name="state" 	maxlength="2" value="'+data.msg[i].state+'" />\
+		                    <input type="text"      class="form-control" name="zip" 	maxlength="5" value="'+data.msg[i].zip+'" />\
+		                    <button type="button"   class="btn btn-success update_data_button disabled" data-loading-text="Update" >Update</button>\
+		                    <button type="button" 	class="btn btn-warning delete_data_button disabled" data-loading-text="Delete" >Delete</button>\
+		                </form>\
+		            </div>';
+				});
+
+				$("#flash_msg").html('Contacts loaded.');
+			} else {
+				$("#flash_msg").html('Contacts could not be loaded.');
+			}
+		//update
+		} else if (action == "patch" && data.bool == true) {
+
+    		//show message
+    		$("#flash_msg").html(data.msg);
+
+			//if successful - update data from out_data
+			if (data.bool == true) {
+
+			//not successful
+			}
+		//delete
+		} else if (action == "delete" && data.bool == true) {
+
+    		//show message
+    		$("#flash_msg").html(data.msg);
+
+    		if (data.bool == true) {
+    			//slide row up to look like it has been removed
+
+    		}
 		}
+
+
 
 		//Append all the new data
 		$("#data_container.scrollspy").append(new_html);
@@ -105,6 +139,8 @@ function crudData(action, data) {
 
 var current_form_elem = null;
 var current_field_val = null;
+var good_response = "#5CB85C";
+var bad_response = "#F0AD4E";
 
 
 
