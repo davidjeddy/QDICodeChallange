@@ -70,7 +70,6 @@ function crudData(action, data) {
 			//TODO refactor this to loop over all the fields returned, stoping @ count 6
 			$.each(data, function(i){
 
-				console.log(data);
 				//TODO add this starter when w new letter is reached: '<div class="bs-example id="//first letter//">
 				new_html += '\
 				<div class="bs-example">\

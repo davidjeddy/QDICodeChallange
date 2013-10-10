@@ -94,10 +94,10 @@ class baseController
 		    case 'post':
 		        if ($this->create()) {
 
-		        	if (!$this->data->error) {
-		        		$return_data = "Create completed successfully.";
-		        	} else {
+		        	if (isset($this->data->error)) {
 		        		$return_data = $this->data->error;
+		        	} else {
+		        		$return_data = array("Update completed successfully.");
 		        	}
 		        } else {
 		        	$return_data = false;
@@ -186,10 +186,12 @@ class baseController
 				$this->data->{$k} = $v;
 			}
 
-			// go save the data if valid
-			if ($this->data->error) {
+
+
+			// go save the data if it is valid
+			if (isset($this->data->error)) {
 				
-				return $this->data->error;
+				return $this->returnData(array($this->data->error));
 				//or return an error
 			} else {
 				
