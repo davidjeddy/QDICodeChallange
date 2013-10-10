@@ -47,11 +47,9 @@ function crudData(action, data) {
 	out_data["action"] = action;
 
 
-	console.log(out_data);
-
 
     //TODO processing animation
-	var promise = $.ajax({
+	$.ajax({
         type: "get",
         data: out_data,
         dataType: "json",
