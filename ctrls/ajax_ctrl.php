@@ -94,40 +94,47 @@ class baseController
 		    case 'post':
 		    	$return_data = $this->create();
 
-		        if (is_bool($return_data)) {
-		        	$return_data = array("bool" => false, "msg" => "Could not create contact data. ");
+		        if ($return_data == false) {
+		        	$return_data = array("bool" => false, "msg" => "Could not create contact data.");
 		        } else {
-		        	$return_data = array("bool" => true, "msg" => $return_data);
+		        	$return_data = array("bool" => true, "msg" => "Contact added successfully.");
 		        }
 
 		        break;
 		    case 'get':
 		    	$return_data = $this->read();
 
-		        if (is_bool($return_data)) {
+		        if ($return_data == false) {
 		        	$return_data = array("bool" => false, "msg" => "Could not read contact data.");
+		        } else {
+		        	$return_data = array("bool" => false, "msg" => $return_data);
 		        }
 
 		        break;
 		    case 'patch':
-		        if ($this->update()) {
+		    	$return_data = $this->update();
+
+		        if ($return_data == false) {
 		        	$return_data = array("bool" => true, "msg" => "Update completed successfully.");
 		        } else {
-		        	$return_data = false;
+		        	$return_data = array("bool" => false, "msg" => "Could not update contact, sorry.");
 		        }
 
 		        break;
 		    case 'delete':
-		        if ($this->delete()) {
-		        	$return_data = array("bool" => true, "msg" => "Contact deleted successfully");
+		    	$return_data = $this->delete();
+
+		        if ($return_data == false) {
+		        	$return_data = array("bool" => true, "msg" => "Deleted contact successfully.");
 		        } else {
-		        	$return_data = false;
+		        	$return_data = array("bool" => false, "msg" => "Could not delete contact, sorry.");
 		        }
 
 		        break;
 		    default:
 		    	$this->returnData(null, "No valid action found.");
 		}
+
 
 
 		$this->returnData($return_data);
@@ -137,24 +144,9 @@ class baseController
 	*Return all processed data as legit json object
 	*This is the termination of the ctrl logic
 	*/
-	private function returnData($data, $msg = null) {
+	private function returnData($data) {
 
-		//Return the error message if it exists
-		if (is_null($data) && $msg) {
-			print_r($msg);
-			exit;
-
-			//Encode and return data
-		} elseif (!empty($data) && is_array($data)) {
-			echo(json_encode($data));
-			exit;
-
-		} else {
-			print_r(json_encode($data));
-			exit;			
-		}
-
-		//...and for safe measure
+		echo(json_encode($data));
 		exit;
 	}
 
@@ -187,7 +179,7 @@ class baseController
 			//If the ZIP API errors skip everything else and go straight to returning the error msg
 			if (isset($this->data->error)) {
 				
-				return $this->returnData(array("bool" -> false, "msg" -> $this->data->error));
+				return $this->returnData(array("bool" => false, "msg" => $this->data->error));
 				//or return an error
 			} else {
 				
