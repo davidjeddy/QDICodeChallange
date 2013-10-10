@@ -56,7 +56,7 @@ class baseModel
 
 		try {
 			$query = "
-				INSERT INTO ".db_name.".contacts (fname, lname, city, state, zip)
+				INSERT INTO ".db_name.".".db_table." (fname, lname, city, state, zip)
 				VALUES (:fname,:lname,:city,:state,:zip)
 			";
 			
@@ -88,6 +88,7 @@ class baseModel
 			SELECT *
 			FROM ".db_name.".".db_table."
 			WHERE `deleted` IS Null
+			ORDER BY fname ASC, lname ASC, ZIP ASC
 		";
 
 		try {
@@ -113,7 +114,7 @@ class baseModel
 		try{
 
 			$stmt = $this->dbConn->prepare("
-				UPDATE ".db_name.".contacts 
+				UPDATE ".db_name.".".db_table."
 		    	SET ".db_table.".fname = ?,
 		    		".db_table.".lname = ?,
 		    		".db_table.".city = ?,
@@ -145,11 +146,20 @@ class baseModel
 		
 		//NEVER really delete data. Just mark it as deleted with the datetime of action
 		try {
-			$stmt = $this->dbConn->prepare("
-				UPDATE ".db_name.".contacts 
-				SET  ".db_table.".deleted = '".date('Y-m-d h:m:s')."'
-				WHERE ".db_table.".id = ?
-			");
+
+			$query = "
+				UPDATE ".db_name.".".db_table." 
+				SET  deleted = '".date('Y-m-d h:m:s')."'
+				WHERE id = :id
+			";
+
+			$stmt = $this->dbConn->prepare($query);
+
+			$stmt->execute(array(
+				':id' => $data->id
+			));
+
+
 
 			$stmt->execute();
 

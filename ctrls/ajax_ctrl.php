@@ -125,9 +125,9 @@ class baseController
 		    	$return_data = $this->delete();
 
 		        if ($return_data == false) {
-		        	$return_data = array("bool" => false, "msg" => "Deleted contact successfully.");
+		        	$return_data = array("bool" => false, "msg" => "Could not delete contact, sorry.");
 		        } else {
-		        	$return_data = array("bool" => true, "msg" => "Could not delete contact, sorry.");
+		        	$return_data = array("bool" => true, "msg" => "Deleted contact successfully.");
 		        }
 
 		        break;
