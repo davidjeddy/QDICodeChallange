@@ -28,7 +28,7 @@ function addRow(data) {
 	return_data = '\
 	<div class="bs-example">\
 	    <form>\
-	        <input type="hidden"    class="form-control" name="id" 		maxlength="11" value="'+data.id+'" />\
+	        <input type="text"    class="form-control" name="id" 		maxlength="11" value="'+data.id+'" />\
 	        <input type="text"      class="form-control" name="fname" 	maxlength="32" value="'+data.fname+'" />\
 	        <input type="text"      class="form-control" name="lname" 	maxlength="32" value="'+data.lname+'" />\
 	        <input type="text"      class="form-control" name="city" 	maxlength="32" value="'+data.city+'" disabled />\
@@ -90,45 +90,55 @@ function crudData(action, data) {
  		if (action == "post") {
 
     		//show message
-    		$("#flash_msg").html(data.msg);
+    		$("#flash_msg").html(data.msg[0]);
 
     		if (data.bool == true) {
-				//TODO get all the data again, slide content up, empty content, relist content, slide down
-    			
-    			//add a new entry
-				$("#data_container").append(addRow(data.msg[0]));
 
+    			//close content
+    			$("#data_container").slideUp();
+    			
+    			//run 'get' ajax
+    			var promise = crudData("get", null);
+
+    			//redisplay content (After ajax completes)
+    			promise.complete(function(){
+    				$("#data_container").slideDown();	
+    			})
+				
     		}
 		//read
 		} else if (action == "get") {
 
+
+			//show message
+			$("#flash_msg").html(data.msg[0]);
 			if (data.bool == true) {
 				
 				$.each(data.msg, function(i){
 
-					$("#data_container").append(addRow(data.msg[i]));
+//BUG, only displaying the first two data rows
+					$("#data_container").append(addRow(data.msg[1][i]));
 				});
 
-				$("#flash_msg").html('Contacts loaded.');
-			} else {
-				$("#flash_msg").html('Contacts could not be loaded.');
-			}
+			} 
 		//update
 		} else if (action == "patch") {
 
     		//show message
-    		$("#flash_msg").html(data.msg);
+    		$("#flash_msg").html(data.msg[0]);
 
-			//if successful - update data from out_data
-			if (data.bool == true) {
+			//if successful update the city and state based on the return values
+    		if (data.bool == true) {
 
-			//not successful
+    			//update the city and state that are siblings of the edited row data
+				$("form input[value='"+data.msg[1].id+"']").parent().children('[name="city"]').val(data.msg[1].city)
+				$("form input[value='"+data.msg[1].id+"']").parent().children('[name="state"]').val(data.msg[1].state)
 			}
 		//delete
 		} else if (action == "delete") {
 
     		//show message
-    		$("#flash_msg").html(data.msg);
+    		$("#flash_msg").html(data.msg[0]);
 
     		if (data.bool == true) {
     			//slide row up to look like it has been removed
