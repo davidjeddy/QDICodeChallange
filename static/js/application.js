@@ -103,14 +103,11 @@ function crudData(action, data) {
 		} else if (action == "get") {
 
 			if (data.bool == true) {
-				var new_html = "";
 				
 				$.each(data.msg, function(i){
 
-					new_html += addRow(data.msg[i]);
+					$("#data_container").append(addRow(data.msg[i]));
 				});
-
-				$("#data_container").append(new_html);
 
 				$("#flash_msg").html('Contacts loaded.');
 			} else {
@@ -141,8 +138,6 @@ function crudData(action, data) {
 
 
 
-		//Append all the new data
-		$("#data_container.scrollspy").append(new_html);
   	}).fail(function(data) {
 
     	//TODO flash row background red to show action failed
