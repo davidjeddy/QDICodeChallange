@@ -63,17 +63,19 @@ class baseController
 
 
 		//if get request, only the action needs to be get
-		//OR if not get must have 7 elements or more
+		//OR if not get must have 3 elements: fname, lname, zip
 		if ($return_data->action == "get"
-			|| ($return_data->action != "get"
-				&& count((array)$return_data) >= 6
+			|| ($return_data->action
+				&& is_string($return_data->fname)
+				&& is_string($return_data->lname)
+				&& is_numeric($return_data->zip)
 			)
 		) {
 			
 			return $return_data;
 		} else {
 			
-			$this->returnData(null, "Not enough data to process.");
+			$this->returnData(null, "Not enough data to process or data incorrect.");
 		}
 	}
 
@@ -90,8 +92,13 @@ class baseController
 		//TODO this can be refactored into a single action->method call. No need to repeat
 		switch ($this->data->action) {
 		    case 'post':
-		        if ($this->create($this->data)) {
-		        	$return_data = "Create completed successfully.";
+		        if ($this->create()) {
+
+		        	if (!$this->data->error) {
+		        		$return_data = "Create completed successfully.";
+		        	} else {
+		        		$return_data = $this->data->error;
+		        	}
 		        } else {
 		        	$return_data = false;
 		        }
@@ -99,7 +106,7 @@ class baseController
 		        break;
 		    case 'get':
 
-		    	$return_data = $this->read($this->data);
+		    	$return_data = $this->read();
 
 		        if (is_bool($return_data)) {
 		        	$return_data = false;
@@ -107,7 +114,7 @@ class baseController
 
 		        break;
 		    case 'patch':
-		        if ($this->update($this->data)) {
+		        if ($this->update()) {
 		        	$return_data = array("Update completed successfully.");
 		        } else {
 		        	$return_data = false;
@@ -115,7 +122,7 @@ class baseController
 
 		        break;
 		    case 'delete':
-		        if ($this->delete($this->data)) {
+		        if ($this->delete()) {
 		        	$return_data = "Deleted action successfull.";
 		        } else {
 		        	$return_data = false;
@@ -164,7 +171,34 @@ class baseController
 	*/
 	public function create() {
 
-		return $this->baseModel->create($this->data);
+		try {	
+			//This is where we hook into the location provider and use the zip code
+			//to return the city and state values like this:http://ZiptasticAPI.com/ZIPCODE
+			$api_res = curl_init( "http://ZiptasticAPI.com/".$this->data->zip );
+			$options = array(
+				CURLOPT_RETURNTRANSFER => true,
+				CURLOPT_HTTPHEADER => array('Content-type: application/json') ,
+			);
+			curl_setopt_array( $api_res, $options );
+			$results =  json_decode (curl_exec($api_res));
+
+			foreach ($results as $k => $v) {
+				$this->data->{$k} = $v;
+			}
+
+			// go save the data if valid
+			if ($this->data->error) {
+				
+				return $this->data->error;
+				//or return an error
+			} else {
+				
+				return $this->baseModel->create($this->data);
+			}
+		} catch (Exception $e) {
+
+			return $e;
+		}
 	}
 
 	/**
