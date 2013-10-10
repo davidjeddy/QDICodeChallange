@@ -52,7 +52,24 @@ class baseModel
 	*Create a new data record
 	*/
 	public function create($data) {
-		return true;
+
+
+			
+			$query = "
+				INSERT INTO ".db_name."contacts (fname, lname, city, state, zip)
+				VALUES (:fname,:lname,:city,:state,:zip)
+			";
+			
+			$stmt = $this->dbConn->prepare($query);
+
+			print_r($stmt->execute(array(
+				':fname'=>$data->fname,
+				':lname'=>$data->lname,
+				':city'=>$data->city,
+				':state'=>$data->state,
+				':zip'=>$data->zip,
+			)));exit;
+
 	}
 
 	/**
