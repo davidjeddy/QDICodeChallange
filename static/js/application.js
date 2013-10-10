@@ -23,7 +23,7 @@ function addRow(data) {
 		return_data = '\
 		<div class="bs-example">\
 		    <form>\
-		        <input type="text"    class="form-control" name="id" 		maxlength="11" value="'+data.id+'" />\
+		        <input type="hidden"    class="form-control" name="id" 		maxlength="11" value="'+data.id+'" />\
 		        <input type="text"      class="form-control" name="fname" 	maxlength="32" value="'+data.fname+'" />\
 		        <input type="text"      class="form-control" name="lname" 	maxlength="32" value="'+data.lname+'" />\
 		        <input type="text"      class="form-control" name="city" 	maxlength="32" value="'+data.city+'" disabled />\
