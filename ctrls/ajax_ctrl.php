@@ -97,7 +97,7 @@ class baseController
 		        if ($return_data == false) {
 		        	$return_data = array("bool" => false, "msg" => "Could not create contact data.");
 		        } else {
-		        	$return_data = array("bool" => true, "msg" => "Contact added successfully.");
+		        	$return_data = array("bool" => true, "msg" => array("Contact updated.", $this->data));
 		        }
 
 		        break;
@@ -107,7 +107,7 @@ class baseController
 		        if ($return_data == false) {
 		        	$return_data = array("bool" => false, "msg" => "Could not read contact data.");
 		        } else {
-		        	$return_data = array("bool" => true, "msg" => $return_data);
+		        	$return_data = array("bool" => true, "msg" => array("Contact loaded.", $return_data));
 		        }
 
 		        break;
@@ -117,7 +117,7 @@ class baseController
 		        if ($return_data == false) {
 		        	$return_data = array("bool" => false, "msg" => "Could not update contact, sorry.");
 		        } else {
-		        	$return_data = array("bool" => true, "msg" => "Update completed successfully.");
+		        	$return_data = array("bool" => true, "msg" =>  array("Contact updated.", $this->data));
 		        }
 
 		        break;
@@ -125,9 +125,11 @@ class baseController
 		    	$return_data = $this->delete();
 
 		        if ($return_data == false) {
-		        	$return_data = array("bool" => false, "msg" => "Could not delete contact, sorry.");
+		        	$return_data = array("bool" => false, "msg" => "Could not delete contact, sorry.", $this->data);
 		        } else {
-		        	$return_data = array("bool" => true, "msg" => "Deleted contact successfully.");
+
+		        	//needs to be an array as all the other methods return objects. to PHP array ~ object
+		        	$return_data = array("bool" => true, "msg" => array("Deleted contact successfully."));
 		        }
 
 		        break;
@@ -185,7 +187,10 @@ class baseController
 		
 		try {
 
-			return $this->baseModel->update($this->getLocation($this->data->zip));
+			$this->getLocation($this->data->zip);
+			$this->baseModel->update($this->data);
+			return true;
+
 		} catch (Exception $e) {
 
 			return $e;
