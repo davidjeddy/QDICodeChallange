@@ -159,32 +159,11 @@ class baseController
 	*/
 	public function create() {
 
-		try {	
-			//This is where we hook into the location provider and use the zip code
-			//to return the city and state values like this:http://ZiptasticAPI.com/ZIPCODE
-			$api_res = curl_init( "http://ZiptasticAPI.com/".$this->data->zip );
-			$options = array(
-				CURLOPT_RETURNTRANSFER => true,
-				CURLOPT_HTTPHEADER => array('Content-type: application/json') ,
-			);
-			curl_setopt_array( $api_res, $options );
-			$results =  json_decode (curl_exec($api_res));
+		try {
+			$this->getLocation($this->data->zip);
 
-			foreach ($results as $k => $v) {
-				$this->data->{$k} = $v;
-			}
+			return $this->baseModel->create($this->data);
 
-
-
-			//If the ZIP API errors skip everything else and go straight to returning the error msg
-			if (isset($this->data->error)) {
-				
-				return $this->returnData(array("bool" => false, "msg" => $this->data->error));
-				//or return an error
-			} else {
-				
-				return $this->baseModel->create($this->data);
-			}
 		} catch (Exception $e) {
 
 			return $e;
@@ -204,7 +183,15 @@ class baseController
 	*/
 	public function update() {
 		
-		return $this->baseModel->update($this->data);
+		try {
+
+			return $this->baseModel->update($this->getLocation($this->data->zip));
+		} catch (Exception $e) {
+
+			return $e;
+		}
+
+
 	}
 
 	/*
@@ -213,6 +200,48 @@ class baseController
 	public function delete() {
 
 		return $this->baseModel->delete($this->data);
+	}
+
+
+
+	//private methods
+	/**
+	*Using the ZIP code return city and state
+	*/
+	private function getLocation() {
+		try {
+			//This is where we hook into the location provider and use the zip code
+			//to return the city and state values like this:http://ZiptasticAPI.com/ZIPCODE
+			$api_res = curl_init( "http://ZiptasticAPI.com/".$this->data->zip );
+			
+			$options = array(
+				CURLOPT_RETURNTRANSFER => true,
+				CURLOPT_HTTPHEADER => array('Content-type: application/json') ,
+			);
+			
+			curl_setopt_array( $api_res, $options );
+			
+			$results =  json_decode (curl_exec($api_res));
+
+			//convert the json return to properties of the $this->data object
+			foreach ($results as $k => $v) {
+				$this->data->{$k} = $v;
+			}
+
+
+
+			//If the ZIP API errors skip everything else and go straight to returning the error msg
+			if (isset($this->data->error)) {
+				
+				return $this->returnData(array("bool" => false, "msg" => $this->data->error));
+			} else {
+
+				return true;
+			}
+		} catch (Exception $e) {
+
+			return $this->returnData(array("bool" => false, "msg" => $this->data->error));
+		}
 	}
 }
 
