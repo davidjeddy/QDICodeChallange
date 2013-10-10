@@ -92,30 +92,26 @@ class baseController
 		//TODO this can be refactored into a single action->method call. No need to repeat
 		switch ($this->data->action) {
 		    case 'post':
-		        if ($this->create()) {
+		    	$return_data = $this->create();
 
-		        	if (isset($this->data->error)) {
-		        		$return_data = $this->data->error;
-		        	} else {
-		        		$return_data = array("Update completed successfully.");
-		        	}
+		        if (is_bool($return_data)) {
+		        	$return_data = array("bool" => false, "msg" => "Could not create contact data. ");
 		        } else {
-		        	$return_data = false;
+		        	$return_data = array("bool" => true, "msg" => $return_data);
 		        }
 
 		        break;
 		    case 'get':
-
 		    	$return_data = $this->read();
 
 		        if (is_bool($return_data)) {
-		        	$return_data = false;
+		        	$return_data = array("bool" => false, "msg" => "Could not read contact data.");
 		        }
 
 		        break;
 		    case 'patch':
 		        if ($this->update()) {
-		        	$return_data = array("Update completed successfully.");
+		        	$return_data = array("bool" => true, "msg" => "Update completed successfully.");
 		        } else {
 		        	$return_data = false;
 		        }
@@ -123,7 +119,7 @@ class baseController
 		        break;
 		    case 'delete':
 		        if ($this->delete()) {
-		        	$return_data = "Deleted action successfull.";
+		        	$return_data = array("bool" => true, "msg" => "Contact deleted successfully");
 		        } else {
 		        	$return_data = false;
 		        }
@@ -165,7 +161,7 @@ class baseController
 
 
 	//These are interposer methods that communicate with the model
-	//'Fat model, skinny controllers', works well with the CRUD design
+	//'Fat model, skinny controllers', works well with the CRUD design principle
 	/*
 	* Create a new data record
 	*/
@@ -188,10 +184,10 @@ class baseController
 
 
 
-			// go save the data if it is valid
+			//If the ZIP API errors skip everything else and go straight to returning the error msg
 			if (isset($this->data->error)) {
 				
-				return $this->returnData(array($this->data->error));
+				return $this->returnData(array("bool" -> false, "msg" -> $this->data->error));
 				//or return an error
 			} else {
 				
