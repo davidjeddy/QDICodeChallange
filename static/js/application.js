@@ -107,6 +107,7 @@ function crudData(action, data) {
 
 
 var current_form_elem = null;
+var current_field_val = null;
 
 
 
@@ -151,6 +152,22 @@ $( document ).on( "click", "form button.btn", function() {
 	}
 
 	return crudData(http_method, current_form_elem.serializeArray());
+});
+
+
+
+/* create form, clear fields as focused */
+$( document ).on( "focus", "form#create_form input", function() {
+
+	current_field_val = $(this).val();
+	$(this).val("");
+});
+
+$( document ).on( "blur", "form#create_form input", function() {
+
+	if ($(this).val() === "") {
+		$(this).val(current_field_val);	
+	}	
 });
 
 
