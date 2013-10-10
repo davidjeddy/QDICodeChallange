@@ -6,18 +6,6 @@
 
 class baseView
 {
-    //TODO move this to the controller/settings. Leave open to internationalize
-    var $alphabet = array('a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z');
-
-
-    public function  getAlphabet() {
-        return $this->alphabet;
-    }
-
-    public function setAlphabet($data) {
-        $this->alphabet = $data;
-    }
-
     public function setData($data) {
         $this->data = $data;
     }
@@ -51,15 +39,10 @@ class baseView
 
                     <div role="navigation" class="navbar navbar-default navbar-static" id="navbar">
                         <div class="navbar-header">
-                          <h2>Con-Man</h2>
+                          <h2 style="display: inline;">Con-Man</h2>
+                          <h3>A simple(ish) Contact Manager</h3>
                         </div>
-                        <div class="collapse navbar-collapse bs-js-navbar-scrollspy">
-                            <ul class="nav navbar-nav">
-                                <?php foreach ($this->alphabet as $letter) { ?>
-                                    <li><a href="#<?= $letter; ?>"><?= $letter; ?></a></li>
-                                <?php } ?>
-                            </ul>
-                        </div>
+
                     </div>
 
 

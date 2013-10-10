@@ -9,12 +9,6 @@
 //Attach scrollspy to navbar
 
 
-/* Call to refresh scrollspy navbar when adding/removing DOM elements */
-$('[data-spy="scroll"]').each(function () {
-  var $spy = $(this).scrollspy('refresh')
-})
-
-
 
 /**
 *Generate a new HTML row for the content area
