@@ -107,7 +107,7 @@ class baseController
 		        if ($return_data == false) {
 		        	$return_data = array("bool" => false, "msg" => "Could not read contact data.");
 		        } else {
-		        	$return_data = array("bool" => false, "msg" => $return_data);
+		        	$return_data = array("bool" => true, "msg" => $return_data);
 		        }
 
 		        break;
@@ -115,9 +115,9 @@ class baseController
 		    	$return_data = $this->update();
 
 		        if ($return_data == false) {
-		        	$return_data = array("bool" => true, "msg" => "Update completed successfully.");
+		        	$return_data = array("bool" => false, "msg" => "Update completed successfully.");
 		        } else {
-		        	$return_data = array("bool" => false, "msg" => "Could not update contact, sorry.");
+		        	$return_data = array("bool" => true, "msg" => "Could not update contact, sorry.");
 		        }
 
 		        break;
@@ -125,9 +125,9 @@ class baseController
 		    	$return_data = $this->delete();
 
 		        if ($return_data == false) {
-		        	$return_data = array("bool" => true, "msg" => "Deleted contact successfully.");
+		        	$return_data = array("bool" => false, "msg" => "Deleted contact successfully.");
 		        } else {
-		        	$return_data = array("bool" => false, "msg" => "Could not delete contact, sorry.");
+		        	$return_data = array("bool" => true, "msg" => "Could not delete contact, sorry.");
 		        }
 
 		        break;
