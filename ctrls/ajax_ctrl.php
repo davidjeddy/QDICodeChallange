@@ -115,9 +115,9 @@ class baseController
 		    	$return_data = $this->update();
 
 		        if ($return_data == false) {
-		        	$return_data = array("bool" => false, "msg" => "Update completed successfully.");
+		        	$return_data = array("bool" => false, "msg" => "Could not update contact, sorry.");
 		        } else {
-		        	$return_data = array("bool" => true, "msg" => "Could not update contact, sorry.");
+		        	$return_data = array("bool" => true, "msg" => "Update completed successfully.");
 		        }
 
 		        break;
