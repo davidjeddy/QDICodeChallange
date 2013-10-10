@@ -73,14 +73,14 @@ class baseView
 
 
 
-                    <div class="add_data_container" class="navbar navbar-default navbar-static">
+                    <div class="add_data_container avbar navbar-default navbar-static">
                         <form id="create_form">
-                            <input type="text" class="form-control" name="fname"    value="First Name" />
-                            <input type="text" class="form-control" name="lname"    value="Last Name" />
-                            <input type="text" class="form-control" name="city"     value="City" disabled/>
-                            <input type="text" class="form-control" name="state"    value="State" disabled />
-                            <input type="text" class="form-control" name="zip"      value="Zip" />
-                            <button type="button" class="btn btn-primary create_data_button" data-loading-text="Create" >Create</button>
+                            <input type="text" class="form-control" name="fname" maxlength="32" value="First Name" />
+                            <input type="text" class="form-control" name="lname" maxlength="32" value="Last Name" />
+                            <input type="text" class="form-control" name="city"  maxlength="32" value="City" disabled/>
+                            <input type="text" class="form-control" name="state" maxlength="2"  value="State" disabled />
+                            <input type="text" class="form-control" name="zip"   maxlength="5"  value="Zip" />
+                            <button type="button" class="btn btn-primary create_data_button disabled" data-loading-text="Create" >Create</button>
                         </form>
                     </div>
                 </div>
