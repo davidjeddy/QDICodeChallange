@@ -100,13 +100,11 @@ function crudData(action, data) {
     			$("#data_container").slideUp();
     			
     			//run 'get' ajax
-    			var promise = crudData("get", null);
-
+    			crudData("get", null)
+    				
     			//redisplay content (After ajax completes)
-    			promise.complete(function(){
-    				$("#data_container").slideDown();	
-    			})
-				
+    			//TOD dont fake this :P, actually use a promise return
+    			setTimeout(function(){$("#data_container").slideDown();},1000);
     		}
 		//read
 		} else if (action == "get") {
