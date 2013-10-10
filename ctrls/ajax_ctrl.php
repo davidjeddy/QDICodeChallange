@@ -95,7 +95,7 @@ class baseController
 		    	$return_data = $this->create();
 
 		        if ($return_data == false) {
-		        	$return_data = array("bool" => false, "msg" => "Could not create contact data.");
+		        	$return_data = array("bool" => false, "msg" => array("Could not create contact data."));
 		        } else {
 		        	$return_data = array("bool" => true, "msg" => array("Contact updated.", $this->data));
 		        }
@@ -105,7 +105,7 @@ class baseController
 		    	$return_data = $this->read();
 
 		        if ($return_data == false) {
-		        	$return_data = array("bool" => false, "msg" => "Could not read contact data.");
+		        	$return_data = array("bool" => false, "msg" => array("Could not read contact data."));
 		        } else {
 		        	$return_data = array("bool" => true, "msg" => array("Contact loaded.", $return_data));
 		        }
@@ -115,7 +115,7 @@ class baseController
 		    	$return_data = $this->update();
 
 		        if ($return_data == false) {
-		        	$return_data = array("bool" => false, "msg" => "Could not update contact, sorry.");
+		        	$return_data = array("bool" => false, "msg" => array("Could not update contact, sorry."));
 		        } else {
 		        	$return_data = array("bool" => true, "msg" =>  array("Contact updated.", $this->data));
 		        }
@@ -125,7 +125,7 @@ class baseController
 		    	$return_data = $this->delete();
 
 		        if ($return_data == false) {
-		        	$return_data = array("bool" => false, "msg" => "Could not delete contact, sorry.", $this->data);
+		        	$return_data = array("bool" => false, "msg" => array("Could not delete contact, sorry.", $this->data));
 		        } else {
 
 		        	//needs to be an array as all the other methods return objects. to PHP array ~ object
