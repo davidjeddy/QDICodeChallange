@@ -113,24 +113,26 @@ class baseModel
 
 		try{
 
-			$stmt = $this->dbConn->prepare("
+			$query = "
 				UPDATE ".db_name.".".db_table."
-		    	SET ".db_table.".fname = ?,
-		    		".db_table.".lname = ?,
-		    		".db_table.".city = ?,
-		    		".db_table.".state = ?,
-		    		".db_table.".zip = ?
-		    	WHERE ".db_table.".id = ?
-		    ");
+		    	SET fname = :fname,
+		    		lname = :lname,
+		    		city = :city,
+		    		state = :state,
+		    		zip = :zip
+		    	WHERE id = :id
+		    ";
+
+			$stmt = $this->dbConn->prepare($query);
 
 			$stmt->execute(array(
-				$data->fname,
-				$data->lname,
-				$data->city,
-				$data->state,
-				$data->zip,
-				$data->id)
-			);
+				':fname'=>$data->fname,
+				':lname'=>$data->lname,
+				':city'=>$data->city,
+				':state'=>$data->state,
+				':zip'=>$data->zip,
+				':id'=>$data->id
+			));
 
 			return true;
 		} catch (PDOException $e) {
