@@ -72,7 +72,7 @@ class baseModel
 
 			return true;
 		} catch (PDOException $e) {
-			return $e;
+			return false;
 		}
 
 	}
@@ -97,8 +97,8 @@ class baseModel
 			}
 
 			return $return_data;
-		} Catch (exception $e) {
-			return $e;
+		} catch (exception $e) {
+			return false;
 		}
 
 		//failover
@@ -114,13 +114,11 @@ class baseModel
 
 			$stmt = $this->dbConn->prepare("
 				UPDATE ".db_name.".contacts 
-
 		    	SET ".db_table.".fname = ?,
 		    		".db_table.".lname = ?,
 		    		".db_table.".city = ?,
 		    		".db_table.".state = ?,
 		    		".db_table.".zip = ?
-
 		    	WHERE ".db_table.".id = ?
 		    ");
 
@@ -136,7 +134,7 @@ class baseModel
 			return true;
 		} catch (PDOException $e) {
 			
-			return "Connection error, because: ".$e->getMessage();
+			return false;
 		}
 	}
 
@@ -146,15 +144,18 @@ class baseModel
 	public function delete($data) {
 		
 		//NEVER really delete data. Just mark it as deleted with the datetime of action
-		$stmt = $this->dbConn->prepare("
-			UPDATE ".db_name.".contacts 
+		try {
+			$stmt = $this->dbConn->prepare("
+				UPDATE ".db_name.".contacts 
+				SET  ".db_table.".deleted = '".date('Y-m-d h:m:s')."'
+				WHERE ".db_table.".id = ?
+			");
 
-			SET  ".db_table.".deleted = '".date('Y-m-d h:m:s')."'
+			$stmt->execute();
 
-			WHERE ".db_table.".id = ?
-		");
-		
-		return $stmt->execute(array($data->id));
-
+			return true;
+		} catch (Exception $e) {
+			return true;
+		}
 	}
 }
