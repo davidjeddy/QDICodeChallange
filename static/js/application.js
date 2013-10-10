@@ -113,10 +113,9 @@ function crudData(action, data) {
 			//show message
 			$("#flash_msg").html(data.msg[0]);
 			if (data.bool == true) {
-				
-				$.each(data.msg, function(i){
 
-//BUG, only displaying the first two data rows
+				$.each(data.msg[1], function(i){
+
 					$("#data_container").append(addRow(data.msg[1][i]));
 				});
 
