@@ -6,8 +6,6 @@
 *@date 2013-10-04
 */
 
-//Attach scrollspy to navbar
-
 
 
 /**
@@ -92,13 +90,21 @@ function crudData(action, data) {
 
     			//close content
     			$("#data_container").slideUp();
+
+    			//clear container div before reloading the data
+				$("#data_container").empty();
     			
     			//run 'get' ajax
     			crudData("get", null)
     				
     			//redisplay content (After ajax completes)
-    			//TOD dont fake this :P, actually use a promise return
+    			//TODO dont fake this :P, actually use a promise return
     			setTimeout(function(){$("#data_container").slideDown();},1000);
+
+    			//reset create form values
+    			$(".add_data_container form-control input[name='fname']").val('First name');
+    			$(".add_data_container form-control input[name='lname']").val('Last name');
+    			$(".add_data_container form-control input[name='Zip']").val('ZIP');
     		}
 		//read
 		} else if (action == "get") {
