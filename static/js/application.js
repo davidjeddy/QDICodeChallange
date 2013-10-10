@@ -16,7 +16,32 @@ $('[data-spy="scroll"]').each(function () {
 
 
 
-// jQ plugins for CRUD
+/**
+*Generate a new HTML row for the content area
+* Execute a CRUD action
+* @author David Eddy pheagey@gmail.com
+* @version 0.0.4
+* @since 2013-10-09
+*/
+function addRow(data) {
+
+	return_data = '\
+	<div class="bs-example">\
+	    <form>\
+	        <input type="hidden"    class="form-control" name="id" 		maxlength="11" value="'+data.id+'" />\
+	        <input type="text"      class="form-control" name="fname" 	maxlength="32" value="'+data.fname+'" />\
+	        <input type="text"      class="form-control" name="lname" 	maxlength="32" value="'+data.lname+'" />\
+	        <input type="text"      class="form-control" name="city" 	maxlength="32" value="'+data.city+'" />\
+	        <input type="text"      class="form-control" name="state" 	maxlength="2" value="'+data.state+'" />\
+	        <input type="text"      class="form-control" name="zip" 	maxlength="5" value="'+data.zip+'" />\
+	        <button type="button"   class="btn btn-success update_data_button disabled" data-loading-text="Update" >Update</button>\
+	        <button type="button" 	class="btn btn-warning delete_data_button disabled" data-loading-text="Delete" >Delete</button>\
+	    </form>\
+	</div>';
+
+	return return_data;
+}
+
 /**
  * Execute a CRUD action
  * @author David Eddy pheagey@gmail.com
@@ -60,7 +85,6 @@ function crudData(action, data) {
     	$("#flash_msg").empty();
 
 
-		//TODO objects alphabetically based on fname
 
 		//create
  		if (action == "post" && data.bool == true) {
@@ -69,8 +93,11 @@ function crudData(action, data) {
     		$("#flash_msg").html(data.msg);
 
     		if (data.bool == true) {
-    			//scroll scrollspy to the bottome
+				//TODO get all the data again, slide content up, empty content, relist content, slide down
+    			
     			//add a new entry
+				$("#data_container").append(addRow(data.msg[0]));
+
     		}
 		//read
 		} else if (action == "get") {
@@ -78,24 +105,12 @@ function crudData(action, data) {
 			if (data.bool == true) {
 				var new_html = "";
 				
-				//TODO refactor this to loop over all the fields returned, stoping @ count 6
 				$.each(data.msg, function(i){
 
-					//TODO add this starter when w new letter is reached: '<div class="bs-example id="//first letter//">
-					new_html += '\
-					<div class="bs-example">\
-		                <form>\
-		                    <input type="hidden"    class="form-control" name="id" 		maxlength="11" value="'+data.msg[i].id+'" />\
-		                    <input type="text"      class="form-control" name="fname" 	maxlength="32" value="'+data.msg[i].fname+'" />\
-		                    <input type="text"      class="form-control" name="lname" 	maxlength="32" value="'+data.msg[i].lname+'" />\
-		                    <input type="text"      class="form-control" name="city" 	maxlength="32" value="'+data.msg[i].city+'" />\
-		                    <input type="text"      class="form-control" name="state" 	maxlength="2" value="'+data.msg[i].state+'" />\
-		                    <input type="text"      class="form-control" name="zip" 	maxlength="5" value="'+data.msg[i].zip+'" />\
-		                    <button type="button"   class="btn btn-success update_data_button disabled" data-loading-text="Update" >Update</button>\
-		                    <button type="button" 	class="btn btn-warning delete_data_button disabled" data-loading-text="Delete" >Delete</button>\
-		                </form>\
-		            </div>';
+					new_html += addRow(data.msg[i]);
 				});
+
+				$("#data_container").append(new_html);
 
 				$("#flash_msg").html('Contacts loaded.');
 			} else {
