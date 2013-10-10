@@ -135,7 +135,7 @@ function crudData(action, data) {
 
     		if (data.bool == true) {
     			//slide row up to look like it has been removed
-    			$("input[value='"+out_data["id"]+"']").parent().slideUp('slow');
+    			$("input[value='"+out_data["id"]+"']").parent().parent().slideUp('slow');
     		}
 		}
 
