@@ -85,6 +85,8 @@ class baseView
                     </div>
                 </div>
 
+                <!-- msg container -->
+                <div id="flash_msg" class="navbar navbar-default navbar-static"></div>
 
 
 
