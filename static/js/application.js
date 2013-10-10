@@ -25,21 +25,23 @@ $('[data-spy="scroll"]').each(function () {
 */
 function addRow(data) {
 
-	return_data = '\
-	<div class="bs-example">\
-	    <form>\
-	        <input type="text"    class="form-control" name="id" 		maxlength="11" value="'+data.id+'" />\
-	        <input type="text"      class="form-control" name="fname" 	maxlength="32" value="'+data.fname+'" />\
-	        <input type="text"      class="form-control" name="lname" 	maxlength="32" value="'+data.lname+'" />\
-	        <input type="text"      class="form-control" name="city" 	maxlength="32" value="'+data.city+'" disabled />\
-	        <input type="text"      class="form-control" name="state" 	maxlength="2" value="'+data.state+'" disabled />\
-	        <input type="text"      class="form-control" name="zip" 	maxlength="5" value="'+data.zip+'" />\
-	        <button type="button"   class="btn btn-success update_data_button disabled" data-loading-text="Update" >Update</button>\
-	        <button type="button" 	class="btn btn-warning delete_data_button disabled" data-loading-text="Delete" >Delete</button>\
-	    </form>\
-	</div>';
+	if(typeof(data) != 'undefined') {
+		return_data = '\
+		<div class="bs-example">\
+		    <form>\
+		        <input type="text"    class="form-control" name="id" 		maxlength="11" value="'+data.id+'" />\
+		        <input type="text"      class="form-control" name="fname" 	maxlength="32" value="'+data.fname+'" />\
+		        <input type="text"      class="form-control" name="lname" 	maxlength="32" value="'+data.lname+'" />\
+		        <input type="text"      class="form-control" name="city" 	maxlength="32" value="'+data.city+'" disabled />\
+		        <input type="text"      class="form-control" name="state" 	maxlength="2" value="'+data.state+'" disabled />\
+		        <input type="text"      class="form-control" name="zip" 	maxlength="5" value="'+data.zip+'" />\
+		        <button type="button"   class="btn btn-success update_data_button disabled" data-loading-text="Update" >Update</button>\
+		        <button type="button" 	class="btn btn-warning delete_data_button disabled" data-loading-text="Delete" >Delete</button>\
+		    </form>\
+		</div>';
 
-	return return_data;
+		return return_data;
+	}
 }
 
 /**
