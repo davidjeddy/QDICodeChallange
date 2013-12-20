@@ -1,18 +1,3 @@
-Name:
-QDI Code Challange
-
-Description:
-A simple contact manager application. Created in response to a code challenge from QDI in Tampa, Fl.
-
-License:
-Creative Commons ( http://creativecommons.org/ )
-
-Contact:
-David Eddy ( me@davidjeddy.com )
-
-Copyright:
-David Eddy, 2013. All right reserved.
-
 Requirements:
 php 5.3+ (with openssl & cURL enabled), mysql 5.6+, composer (included)
 
