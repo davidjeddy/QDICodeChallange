@@ -1,6 +1,6 @@
 {
-    "name": "davidjeddy/ConMan",
-    "description": "A simple contact manager application created as a code challange from QDI, Tampa.",
+    "name": "QDI Code Challange",
+    "description": "A simple contact manager application. Created in response to a code challange from QDI in Tampa, Fl.",
     "license": "All right reserved, David Eddy. 2013. Creative Commons license",
     "authors": [
         {
