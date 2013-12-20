@@ -14,12 +14,31 @@ class baseView
         return $data;
     }
 
-
     public function __construct() {
         $this->renderView();
     }
 
-    private function renderView() { ?>
+
+
+    private function renderView() {
+        //If jQ and twtbs are not loaded. Show `not installed` error msg
+        if (
+            !file_exists( './vendor/components/jquery/jquery.min.js' )
+            || !file_exists( './vendor/twitter/bootstrap/dist/js/bootstrap.min.js' )
+        ) {
+        ?>
+            <DocType html>
+            <html>
+                <head>
+                    <title>Con-Man, a simple(ish) contact manager.</title>
+                </head>
+                <body><h3>You need to run the installer. See ./docs/README.MD for details.</body
+            </html>
+        <?php
+        return false;
+        }
+
+        ?>
         <DocType html>
         <html>
             <head>
@@ -80,5 +99,6 @@ class baseView
             </body>
         </html>
         <?php
+        return true;
     }
 }
