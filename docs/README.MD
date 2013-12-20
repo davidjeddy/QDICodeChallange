@@ -3,8 +3,18 @@ php 5.3+ (with openssl & cURL enabled), mysql 5.6+, composer (included)
 
 Install:
 1) Change to working dir
-2) php composer.phar install
-3) Log into your RDBM. Create table 'conman' db
-4) Use table script located in ./docs/conman_table.sql
-5) Edit 'settings.php'
-6) Collect bacon
+2) uncompress project into dir
+3) run "php composer.phar install"
+4) In your SQL RDBM create a table named 'conman'
+5) Use table script located in ./docs/conman_table.sql
+6) Edit 'settings.php' for connection information
+7) USe application
+
+Copyright:
+David Eddy, 2013. All right reserved.
+
+Contact:
+David Eddy ( me@davidjeddy.com )
+
+License:
+Creative Commons ( http://creativecommons.org/ )
