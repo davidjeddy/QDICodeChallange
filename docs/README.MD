@@ -2,7 +2,7 @@ Name:
 QDI Code Challange
 
 Description:
-A simple contact manager application. Created in response to a code challange from QDI in Tampa, Fl.
+A simple contact manager application. Created in response to a code challenge from QDI in Tampa, Fl.
 
 License:
 Creative Commons ( http://creativecommons.org/ )
