@@ -55,3 +55,7 @@ input.form-control, button.btn {
 	margin-top:15px;
 	padding:5px
 }
+
+#flash_msg {
+	padding: 5px;
+}

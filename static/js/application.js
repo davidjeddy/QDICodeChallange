@@ -1,20 +1,20 @@
 /**
-*twbs js for Con-Man
-*@author deddy <pheagey@gmail.com>
-*@since 0.0.1
-*@version 0.0.1
-*@date 2013-10-04
-*/
+ *twbs js for Con-Man
+ *@author deddy <pheagey@gmail.com>
+ *@since 0.0.1
+ *@version 0.0.1
+ *@date 2013-10-04
+ */
 
 
 
 /**
-*Generate a new HTML row for the content area
-* Execute a CRUD action
-* @author David Eddy pheagey@gmail.com
-* @version 0.0.4
-* @since 2013-10-09
-*/
+ *Generate a new HTML row for the content area
+ * Execute a CRUD action
+ * @author David Eddy pheagey@gmail.com
+ * @version 0.0.4
+ * @since 2013-10-09
+ */
 function addRow(data) {
 
 	if(typeof(data) != 'undefined') {
@@ -84,7 +84,7 @@ function crudData(action, data) {
  		if (action == "post") {
 
     		//show message
-    		$("#flash_msg").html(data.msg[0]);
+    		$("#flash_msg").html(data.msg);
 
     		if (data.bool == true) {
 
@@ -95,7 +95,7 @@ function crudData(action, data) {
 				$("#data_container").empty();
     			
     			//run 'get' ajax
-    			crudData("get", null)
+    			crudData("get", null);
     				
     			//redisplay content (After ajax completes)
     			//TODO dont fake this :P, actually use a promise return
