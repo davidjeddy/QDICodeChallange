@@ -1,20 +1,15 @@
 {
-    "name": "qdi/SampleCodeChallenge",
-    "description": "",
-    "license": "All right reserved, David Eddy. 2013",
+    "name": "davidjeddy/ConMan",
+    "description": "A simple contact manager application created as a code challange from QDI, Tampa.",
+    "license": "All right reserved, David Eddy. 2013. Creative Commons license",
     "authors": [
         {
             "name": "David Eddy",
-            "email": "pheagey@gmail.com"
+            "email": "me@davidjeddy.com"
         }
     ],
     "minimum-stability": "stable",
     "require": {
-        "phpunit/phpunit": "3.7.24",
-        "phpdocumentor/phpdocumentor": "2.*",
-        "monolog/monolog": "1.6.*",
-        "squizlabs/php_codesniffer": "1.4.x",
-        "fabpot/php-cs-fixer": "0.3.*@dev",
         "components/jquery": "1.10.*@dev",
         "twitter/bootstrap": "v3.0.0"
     }
