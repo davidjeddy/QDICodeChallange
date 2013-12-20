@@ -30,3 +30,4 @@ _ReSharper*/
 vendor/*
 *.lock
 components/*
+*.zip
