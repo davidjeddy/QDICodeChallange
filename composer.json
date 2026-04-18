@@ -1,0 +1,16 @@
+{
+    "name": "QDI Code Challange",
+    "description": "A simple contact manager application. Created in response to a code challange from QDI in Tampa, Fl.",
+    "license": "All right reserved, David Eddy. 2013. Creative Commons license",
+    "authors": [
+        {
+            "name": "David Eddy",
+            "email": "me@davidjeddy.com"
+        }
+    ],
+    "minimum-stability": "stable",
+    "require": {
+        "components/jquery": "1.10.*@dev",
+        "twitter/bootstrap": "v3.0.0"
+    }
+}
